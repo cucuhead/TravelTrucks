@@ -1,0 +1,25 @@
+:root {
+  /* Colors */
+  --white: #FFFFFF;
+  --inputs: #F7F7F7;
+  --main: #101828; /* Koyu lacivert/siyah yazı rengi */
+  --secondary: #475467; /* Gri yazı rengi */
+  --button: #E44848; /* Kırmızı butonlar */
+  --button-hover: #D84343;
+  --rating: #FFC531; /* Yıldız/Sarı rengi */
+  --badges: #F2F4F7; /* Özellik ikonlarının arkasındaki gri */
+  
+  /* Fonts */
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--main);
+  background-color: var(--white);
+}
+
+button {
+  cursor: pointer; /* Kritik kriter: Butonlarda pointer özelliği */
+}
