@@ -1,0 +1,56 @@
+.hero {
+  /* Header yüksekliğini (yaklaşık 72px) çıkararak tam ekran yapıyoruz */
+  height: calc(100vh - 72px); 
+  /* Arka plan görseli ve üzerine hafif bir karartma (yazıların okunması için) */
+  background-image: linear-gradient(rgba(16, 24, 40, 0.4), rgba(16, 24, 40, 0.4)), 
+                    url('../../assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding-left: 64px;
+}
+
+.content {
+  max-width: 600px;
+}
+
+.title {
+  /* Figma 'H1' Değerleri */
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 600; /* Semi Bold */
+  line-height: 32px; /* Yazı fonttan büyük olduğu için birbirine yaklaşacak */
+  letter-spacing: 0;
+  
+  /* Görsel ve Boşluk Değerleri */
+  color: #FFFFFF;
+  margin-bottom: 16px; /* Paragraph spacing 20px ama tasarımda altına gelen elemanla olan mesafe genellikle görsel ayarlanır */
+  text-align: left;
+}
+
+/* HomePage.module.css içindeki .subtitle kısmı */
+.subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600; /* Semi Bold */
+  line-height: 32px;
+  color: #FFFFFF; /* Hero üzerinde olduğu için beyaz, ama normalde var(--main) olurdu */
+  margin-bottom: 40px; /* Paragraph spacing 20px ancak butonla arasındaki mesafe tasarımda daha geniş */
+  letter-spacing: 0;
+}
+
+.ctaButton {
+  background-color: var(--button); /* global.css'den geliyor: #E44848 */
+  color: white;
+  padding: 16px 60px;
+  border-radius: 200px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.ctaButton:hover {
+  background-color: var(--button-hover);
+}

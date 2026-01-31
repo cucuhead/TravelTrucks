@@ -1,0 +1,62 @@
+.header {
+  padding: 24px 64px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--white);
+}
+
+.nav {
+  display: flex;
+ justify-content: flex-start;
+ gap: 450px;
+  align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--main);
+}
+.logoTrucks {
+  color: var(--secondary); 
+}
+
+.menu {
+  display: flex;
+  gap: 32px;
+}
+
+.link {
+  /* Figma'daki 'Body 2' Değerleri */
+  font-family: 'Inter', sans-serif; /* Projende Inter fontunun yüklü olduğundan emin ol */
+  font-size: 16px;
+  font-weight: 500; /* Medium */
+  line-height: 24px; /* 1.5 veya 24px */
+  letter-spacing: 0;
+  
+  /* Görsel Yerleşim Değerleri */
+  width: 60px; /* Sabit genişlik yazıyı kutu içine alır */
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horizontal alignment: Center */
+  
+  text-decoration: none;
+  color: var(--main); /* Varsayılan renk */
+  transition: color 0.3s ease;
+}
+
+/* Home yazısı (aktif olan) için kırmızı tonu */
+.active {
+  color: var(--button); /* #E44848 */
+}
+
+.link:hover {
+  color: var(--button);
+}
+
+.active {
+  color: var(--button); /* Aktif olan sayfa kırmızı görünecek */
+}
