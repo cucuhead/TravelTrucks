@@ -1,0 +1,204 @@
+/* Ana Sayfa Düzeni */
+.container {
+  display: flex;
+  gap: 64px; /* Figma: Sidebar ve Liste arası boşluk */
+  padding: 40px 64px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* --- SOL TARAF: SIDEBAR --- */
+.sidebar {
+  width: 360px; /* Figma Sidebar genişliği */
+}
+
+/* Location Section - Figma Ölçüleri */
+.locationSection {
+  margin-bottom: 32px;
+}
+
+.locationLabel {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(16, 24, 40, 0.6);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center; /* Dikeyde tam orta */
+  
+  width: 360px; /* Figma: Fixed */
+  height: 56px;  /* Figma: Fixed */
+  
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  
+  /* Figma Boşlukları: Sol 20px, Üst/Alt 18px */
+  padding: 18px 20px; 
+  box-sizing: border-box;
+  
+  /* İkon ve Yazı arası 8px */
+  gap: 8px; 
+}
+/* İkon ve metni içeren kutu */
+.inputContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /* Dikeyde tam orta */
+  padding: 18px 20px; /* Üst-Alt: 18px, Sol-Sağ: 20px */
+  pointer-events: none; /* Tıklamayı alttaki inputa geçirir */
+}
+/* İkonun konumu: Soldan tam 20px */
+.mapIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0; /* İkonun sıkışmasını engeller */
+}
+
+.placeholderText {
+  font-size: 16px;
+  color: #101828;
+  font-family: 'Inter', sans-serif;
+}
+
+.locationInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  
+  padding: 0; /* Wrapper zaten padding veriyor, bunu sıfırla */
+  margin: 0;
+  
+  font-size: 16px;
+  line-height: 1; /* Yazının yukarı/aşağı kaymasını engeller */
+  color: #101828;
+  font-family: 'Inter', sans-serif;
+}
+.locationInput::placeholder {
+  color: #101828; /* Figma'daki gibi koyu veya hafif gri yapabilirsin */
+  /* opacity: 1; */
+  font-weight: 400;
+}
+/* Filtre Grupları Genel */
+.filtersSection {
+  margin-top: 32px;
+}
+
+.filterTitle {
+  font-weight: 500;
+  color: #475467;
+  margin-bottom: 14px;
+}
+
+.groupHeading {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 24px 0;
+  color: #101828;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(16, 24, 40, 0.1);
+  margin-bottom: 24px;
+}
+
+/* Filtre Kartları Grid (112x96) */
+.filterGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* Figma: Kartlar arası 12px */
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  width: 112px; /* Figma: Fixed Width */
+  height: 96px;  /* Figma: Fixed Height */
+  padding: 16px;
+  
+  border: 1px solid rgba(16, 24, 40, 0.2);
+  border-radius: 12px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+/* Aktif Filtre (Tıklandığında) */
+.filterItem.active {
+  border: 1px solid #E44848; /* Figma: Red Button Color #E44848 */
+}
+
+.filterIcon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px; /* Figma: Gap 8px */
+}
+
+.filterLabel {
+  font-size: 16px;
+  font-weight: 500;
+  color: #101828;
+}
+
+/* Search Button - Figma Ölçüleri */
+.searchBtn {
+  width: 166px; /* Figma: Fixed 166px */
+  height: 56px;  /* Figma: Hug 56px */
+  background-color: #E44848;
+  color: white;
+  border: none;
+  border-radius: 200px; /* Figma: Radius 200px */
+  padding: 16px 60px;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 64px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.searchBtn:hover {
+  background-color: #d84343;
+}
+
+/* --- SAĞ TARAF: CONTENT --- */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.loadMore {
+  padding: 16px 32px;
+  background: transparent;
+  border: 1px solid #dadde1;
+  border-radius: 200px;
+  font-weight: 500;
+  color: #101828;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: border-color 0.3s;
+}
+
+.loadMore:hover {
+  border-color: #E44848;
+}
