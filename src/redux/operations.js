@@ -4,34 +4,40 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 axios.defaults.baseURL = "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io";
 
 export const fetchCampers = createAsyncThunk(
-  "campers/fetchAll",
+  "campers/fetchCampers",
   async (filters = {}, thunkAPI) => {
     try {
-      // 1. Parametreleri temiz bir obje olarak hazırlıyoruz
-      const params = {};
+      const params = new URLSearchParams();
 
-      if (filters.location) params.location = filters.location;
-      if (filters.form) params.form = filters.form;
-      
-      // MockAPI'de boolean değerler genelde true olarak gönderilir
-      if (filters.AC) params.AC = true;
-      if (filters.kitchen) params.kitchen = true;
-      if (filters.TV) params.TV = true;
-      if (filters.bathroom) params.bathroom = true;
-      if (filters.transmission) params.transmission = filters.transmission;
-
-      // 2. Axios ile isteği atıyoruz (params objesini direkt geçebiliriz, axios URL'e çevirir)
-      const response = await axios.get("/campers", { params });
-
-      // MockAPI veriyi direkt array olarak mı yoksa { items: [] } olarak mı dönüyor?
-      // Ödevdeki yapıya göre genellikle response.data yeterlidir.
-      return response.data; 
-    } catch (e) {
-      // Eğer API 404 dönerse (hiç sonuç bulunamadığında), boş bir dizi dönerek 
-      // uygulamanın çökmesini engelliyoruz.
-      if (e.response && e.response.status === 404) {
-        return []; 
+      // 1. Konum Filtresi
+      if (filters.location) {
+        params.append("location", filters.location);
       }
+
+      // 2. Araç Tipi Filtresi (form)
+      if (filters.type) {
+        params.append("form", filters.type);
+      }
+
+      // 3. Ekipman Filtreleri
+      // Önemli: SADECE seçili olanları ekle, diğerlerini parametre olarak bile gönderme.
+      if (filters.equipment?.length > 0) {
+        filters.equipment.forEach((item) => {
+          if (item === "transmission") {
+            params.append("transmission", "automatic");
+          } else {
+            params.append(item, "true");
+          }
+        });
+      }
+
+      // Query string oluştur ve boşsa sadece ana endpoint'e git
+      const queryString = params.toString();
+      const url = queryString ? `/campers?${queryString}` : "/campers";
+      
+      const response = await axios.get(url);
+      return response.data;
+    } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
