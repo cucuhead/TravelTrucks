@@ -58,17 +58,22 @@
 }
 
 .heartBtn {
-  background: none;
-  border: none;
+  background: transparent; /* Arka planı sil */
+  border: none;            /* Siyah kutuyu/çerçeveyi sil */
+  padding: 0;              /* Boşlukları sıfırla */
   cursor: pointer;
-  padding: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;          /* Ekstra boşlukları engelle */
+  outline: none;           /* Tıklayınca çıkan mavi çizgiyi engelle */
 }
 
-.iconHeart {
-  width: 24px;
-  height: 24px;
+.heartBtn:focus {
+  outline: none;           /* Garantiye alalım */
 }
+
+
 
 /* Meta (Rating & Location) */
 .meta {
@@ -85,6 +90,17 @@
 
 .iconStar { width: 16px; height: 16px; }
 .iconMap { width: 16px; height: 16px; }
+.iconHeart {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+/* Kalp favoriye eklendiğinde çalışacak stil */
+.iconHeart.active {
+  /* SVG'nin rengini CSS ile kırmızıya zorluyoruz */
+  filter: invert(27%) sepia(82%) saturate(2253%) hue-rotate(346deg) brightness(95%) contrast(93%);
+}
 
 .ratingText { text-decoration: underline; }
 

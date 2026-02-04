@@ -1,11 +1,12 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/operations";
-import { selectCampers, selectIsLoading } from "../../redux/selectors";
+import { selectCampers, selectIsLoading } from "../../redux/selectors"; // selectFilters selector'ını eklemeyi unutmayın
+import { setFilters } from "../../redux/slices/campersSlice";
 import CamperCard from "../../components/CamperCard/CamperCard";
 import css from "./CatalogPage.module.css";
 
-// İkon importları (Dosya yollarını kontrol etmeyi unutma)
+// İkon importları
 import mapPinIcon from "../../assets/icons/map.svg";
 import windIcon from "../../assets/icons/wind.svg";
 import diagramIcon from "../../assets/icons/diagram.svg";
@@ -20,47 +21,36 @@ const CatalogPage = () => {
   const dispatch = useDispatch();
   const campersFromStore = useSelector(selectCampers);
   const isLoading = useSelector(selectIsLoading);
-
-  const [location, setLocation] = useState("");
-  const [equipmentFilters, setEquipmentFilters] = useState([]);
-  const [typeFilter, setTypeFilter] = useState("");
-  const [visibleCount, setVisibleCount] = useState(4);
   
-  // ARAMA STATE: Sadece "Search" butonuna basınca bu state güncellenir.
-  const [activeFilters, setActiveFilters] = useState({
-    location: "",
-    equipment: [],
-    type: "",
-  });
+  // Redux'taki filtreleri alıyoruz (Selector'unuz yoksa state.campers.filters olarak kullanın)
+  const activeFilters = useSelector((state) => state.campers.filters);
+
+  // UI Local State (Yazarken anlık değişen ama Search'e basınca Redux'a giden alanlar)
+  const [localLocation, setLocalLocation] = useState(activeFilters.location);
+  const [localEquipment, setLocalEquipment] = useState(activeFilters.equipment);
+  const [localType, setLocalType] = useState(activeFilters.type);
+  const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
-    dispatch(fetchCampers({}));
+    // Sayfa açıldığında mevcut filtrelerle veri çek
+    dispatch(fetchCampers(activeFilters));
   }, [dispatch]);
 
-  // 1. Yazım hatasını düzelttik: handleTypeSelect
   const handleTypeSelect = (id) => {
-    setTypeFilter((prev) => (prev === id ? "" : id));
+    setLocalType((prev) => (prev === id ? "" : id));
   };
 
   const toggleEquipment = (id) => {
-    setEquipmentFilters((prev) =>
+    setLocalEquipment((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  // 2. KESİN ÇÖZÜM (Frontend Süzgeci): 
-  // MockAPI bazen "bathroom"u kaldırsan da hepsini yollar. 
-  // Burası sadece seçili olanların ekranda kalmasını garanti eder.
+  // Frontend Süzgeci (MockAPI kısıtları için)
   const filteredCampers = useMemo(() => {
     if (!campersFromStore) return [];
-
     return campersFromStore.filter((camper) => {
-      // Tip Süzgeci
       if (activeFilters.type && camper.form !== activeFilters.type) return false;
-      
-      // Ekipman Süzgeci (Bathroom, TV, AC vb.)
-      // Eğer bir ekipman activeFilters.equipment içindeyse, araçta o özellik MUTLAKA olmalı.
-      // İçinde değilse, araçta o özelliğin olup olmaması önemli değil (Kriter böyle diyor).
       return activeFilters.equipment.every((eq) => {
         if (eq === "transmission") return camper.transmission === "automatic";
         return camper[eq] === true;
@@ -69,17 +59,17 @@ const CatalogPage = () => {
   }, [campersFromStore, activeFilters]);
 
   const handleSearch = () => {
-     console.log("Arama kriterleri:", equipmentFilters);
     const searchParams = {
-      location: location.trim(),
-      type: typeFilter,
-      equipment: [...equipmentFilters], // Referans değişimi için spread
+      location: localLocation.trim(),
+      type: localType,
+      equipment: [...localEquipment],
     };
-   
-    
-    setActiveFilters(searchParams);
-    dispatch(fetchCampers(searchParams)); // Backend'e istek at (Ödev kriteri)
-    setVisibleCount(4); 
+
+    // ÖDEV KRİTERİ: Filtreleri global state'e yazıyoruz
+    dispatch(setFilters(searchParams));
+    // ÖDEV KRİTERİ: Yeni filtre ile backend'den veri çekiyoruz
+    dispatch(fetchCampers(searchParams)); 
+    setVisibleCount(4);
   };
 
   const equipmentData = [
@@ -107,8 +97,8 @@ const CatalogPage = () => {
               type="text"
               placeholder="City, Country"
               className={css.locationInput}
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={localLocation}
+              onChange={(e) => setLocalLocation(e.target.value)}
             />
           </div>
         </div>
@@ -125,7 +115,7 @@ const CatalogPage = () => {
                   type="button"
                   onClick={() => toggleEquipment(f.id)}
                   style={{ cursor: "pointer" }}
-                  className={`${css.filterItem} ${equipmentFilters.includes(f.id) ? css.active : ""}`}
+                  className={`${css.filterItem} ${localEquipment.includes(f.id) ? css.active : ""}`}
                 >
                   <img src={f.icon} alt={f.label} />
                   <span>{f.label}</span>
@@ -144,7 +134,7 @@ const CatalogPage = () => {
                   type="button"
                   onClick={() => handleTypeSelect(f.id)}
                   style={{ cursor: "pointer" }}
-                  className={`${css.filterItem} ${typeFilter === f.id ? css.active : ""}`}
+                  className={`${css.filterItem} ${localType === f.id ? css.active : ""}`}
                 >
                   <img src={f.icon} alt={f.label} />
                   <span>{f.label}</span>
@@ -161,27 +151,18 @@ const CatalogPage = () => {
 
       <main className={css.content}>
         {isLoading && <p className={css.infoText}>Loading vehicles...</p>}
-
         <div className={css.list}>
           {filteredCampers.length > 0 ? (
             filteredCampers
               .slice(0, visibleCount)
               .map((camper) => <CamperCard key={camper.id} camper={camper} />)
           ) : (
-            !isLoading && (
-              <div className={css.noResults}>
-                <p>No campers found matching your filters.</p>
-              </div>
-            )
+            !isLoading && <p className={css.noResults}>No campers found.</p>
           )}
         </div>
 
         {filteredCampers.length > visibleCount && !isLoading && (
-          <button
-            className={css.loadMore}
-            style={{ cursor: "pointer" }}
-            onClick={() => setVisibleCount((prev) => prev + 4)}
-          >
+          <button className={css.loadMore} onClick={() => setVisibleCount(prev => prev + 4)}>
             Load more
           </button>
         )}
