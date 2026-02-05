@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCampers } from '../operations';
+import { fetchCampers, fetchCamperById } from '../operations';
 
 const campersSlice = createSlice({
   name: 'campers',
   initialState: {
     items: [],
-    favorites: [], // Favori ID listesi
-    filters: {    // GLOBAL FİLTRE STATE'İ
+    favorites: [], 
+    currentCamper: null,
+    filters: {
       location: "",
       equipment: [],
       type: "",
@@ -15,11 +16,9 @@ const campersSlice = createSlice({
     error: null,
   },
   reducers: {
-    // Filtreleri güncelleyen action
     setFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload };
     },
-    // Favori ekleme/çıkarma action'ı
     toggleFavorite: (state, action) => {
       const id = action.payload;
       if (state.favorites.includes(id)) {
@@ -31,6 +30,7 @@ const campersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Tüm karavanları getirme
       .addCase(fetchCampers.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -41,6 +41,21 @@ const campersSlice = createSlice({
         state.items = action.payload.items || action.payload; 
       })
       .addCase(fetchCampers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // TEKİL karavan getirme (Hata buradaydı, aradaki ; işaretlerini kaldırdım)
+      .addCase(fetchCamperById.pending, (state) => {
+        state.loading = true;
+        state.currentCamper = null; 
+        state.error = null;
+      })
+      .addCase(fetchCamperById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.currentCamper = action.payload;
+      })
+      .addCase(fetchCamperById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
