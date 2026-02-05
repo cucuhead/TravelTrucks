@@ -2,9 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: 44px;
-  background-color: #f7f7f7; /* Yakaladığın o özel arka plan rengi */
-  padding: 44px; /* İçeriden ferah bir boşluk */
+  background-color: #f7f7f7;
+  padding: 44px 80px;      /* Figma değerleri */
   border-radius: 10px;
+ width: 100%; /* Üst kapsayıcı ne derse o kadar olsun */
+  max-width: 631px;
+  height: 100%;
+       
+          
+  box-sizing: border-box;  /* Padding'in genişliği şişirmesini engeller */
 }
 
 .badgeList {

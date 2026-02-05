@@ -1,0 +1,69 @@
+.formContainer {
+  border: 1px solid rgba(16, 24, 40, 0.2);
+  border-radius: 10px;
+  padding: 44px;
+  background-color: #ffffff;
+  width: 100%;   
+  
+  max-width: 641px;
+          /* 641px'lik kapsayıcıyı doldurur */
+  height: 100%;            /* Features ile boyunu eşitler */
+  box-sizing: border-box;  /* Çok önemli: Genişliği sabit tutar */
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* Inputlar arası boşluk */
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #475467;
+  margin-bottom: 24px;
+}
+
+
+
+.input, .textarea {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f7f7f7; /* Senin sevdiğin o gri */
+  font-size: 16px;
+  outline: none;
+}
+
+.textarea {
+  height: 114px;
+  resize: none;
+}
+
+.submitBtn {
+  background-color: #e44848;
+  color: white;
+  padding: 16px 60px;
+  border-radius: 200px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  
+  /* BUTONU ORTALAMAK İÇİN SİHİRLİ DOKUNUŞ: */
+  align-self: center; 
+  margin-top: auto; /* Form elemanlarından sonra kalan tüm boşluğu üstüne alır */
+}
+.submitBtn:hover {
+  background-color: #d84343; /* Figma'daki hover rengi */
+}
+
+.dateWrapper :global(.react-datepicker-wrapper) {
+  width: 100%;
+}

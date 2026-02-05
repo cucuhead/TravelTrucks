@@ -46,29 +46,35 @@
 }
 
 /* Galeri - Figma: 292x312px, Gap: 48px */
-.gallery {
-  display: flex;
-  gap: 48px;
-  margin-bottom: 28px;
-  overflow-x: auto;
-  scrollbar-width: none; /* Kaydırma çubuğunu gizle */
-}
+
 
 .gallery::-webkit-scrollbar {
   display: none; /* Chrome/Safari için gizle */
 }
 
-.imageWrapper {
-  flex: 0 0 292px;
-  height: 312px;
-  border-radius: 10px;
-  overflow: hidden;
+
+
+.gallery {
+  display: flex;
+  gap: 48px; 
+  margin-bottom: 28px;
 }
 
+/* Her bir resmin dış sarmalayıcısı */
+.imageWrapper {
+  width: 292px;  /* Figma ölçüsü */
+  height: 312px; /* Figma ölçüsü */
+  border-radius: 10px;
+  overflow: hidden; /* Köşelerin kesilmesi için ŞART */
+  flex-shrink: 0;
+}
+
+/* Resmin kendisi */
 .galleryImage {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Resmi sündürmeden doldurur */
+  display: block;
 }
 
 .description {
@@ -108,21 +114,29 @@
   background-color: #e44848;
 }
 
-/* Alt İçerik Düzeni */
 .contentWrapper {
   display: flex;
-  gap: 64px; /* Sol içerik ve Sağ form arası boşluk */
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; /* Yükseklikleri eşitler */
+  gap: 40px;            /* Figma gap */
+  width: 100%;
+  max-width: 1312px;    /* 631 + 40 + 641 */
+  margin: 44px auto 0;  /* Ortala */
+  padding: 0 16px;      /* Kenarlara yapışmasın diye minik bir pay */
+  box-sizing: border-box;
 }
 
 .leftContent {
-  flex: 1;
+  /* Figma oranı: 631 / 1272 (toplam genişlik) ≈ %49.6 */
+  flex: 0 1 49.6%; 
+  min-width: 0;
 }
 
 .rightContent {
-  width: 448px;
-  position: sticky;
-  top: 20px;
+  /* Figma oranı: 641 / 1272 ≈ %50.4 */
+  flex: 0 1 50.4%;
+  min-width: 0;
 }
 
 /* Loading */

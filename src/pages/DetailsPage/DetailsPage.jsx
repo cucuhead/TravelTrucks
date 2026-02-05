@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCamperById } from "../../redux/operations";
 import { selectCurrentCamper, selectIsLoading } from "../../redux/selectors";
 
-// Yeni oluşturduğun bileşeni import ediyoruz
+// Bileşenleri Import Ediyoruz
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures";
+import BookingForm from "../../components/BookingForm/BookingForm"; // Yeni kuracağın yer
 
 // İkonlar
 import starIcon from "../../assets/icons/star.svg";
@@ -52,7 +53,7 @@ const DetailsPage = () => {
         <p className={css.price}>€{Number(camper.price).toFixed(2)}</p>
       </div>
 
-      {/* Galeri - Figma: 292x312px */}
+      {/* Galeri */}
       <div className={css.gallery}>
         {camper.gallery?.map((img, index) => (
           <div key={index} className={css.imageWrapper}>
@@ -80,28 +81,22 @@ const DetailsPage = () => {
         </button>
       </div>
 
-      {/* Alt İçerik Alanı */}
+      {/* Alt İçerik Alanı - Figma'daki yan yana (Flex) yapı */}
       <div className={css.contentWrapper}>
         <div className={css.leftContent}>
           {activeTab === "features" ? (
-            /* ARTIK BURADA BİLEŞENİN ÇALIŞACAK */
             <CamperFeatures camper={camper} />
           ) : (
             <div className={css.reviewsPlaceholder}>
-              {/* Buraya CamperReviews gelecek */}
+              {/* Buraya CamperReviews gelecek, şimdilik placeholder */}
               <p>Reviews content will be here...</p>
             </div>
           )}
         </div>
 
         <div className={css.rightContent}>
-          {/* Rezervasyon Formu Alanı (Figma stiline uygun dış kutu) */}
-          <div className={css.bookingFormWrapper}>
-            <h3 className={css.formTitle}>Book your campervan now</h3>
-            <p className={css.formSubtitle}>Stay connected! We are always ready to help you.</p>
-            {/* Buraya BookingForm bileşeni gelecek */}
-            <div className={css.placeholderForm}>[Form Fields Here]</div>
-          </div>
+          {/* Rezervasyon Formu Bileşeni Artık Burada */}
+          <BookingForm />
         </div>
       </div>
     </section>
