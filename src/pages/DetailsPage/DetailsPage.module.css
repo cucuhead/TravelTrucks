@@ -1,0 +1,172 @@
+.container {
+  /* Figma'daki toplam sayfa genişliği */
+  max-width: 1440px; 
+  margin: 0 auto;
+  /* Üst/Alt 48px, Sol/Sağ 64px boşluk */
+  padding: 48px 64px; 
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box; /* Padding'in genişliğe dahil olması için şart */
+}
+
+/* Üst Bilgiler */
+.header {
+  margin-bottom: 28px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  color: #101828;
+}
+
+.meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.ratingBox, .locationBox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ratingText {
+  text-decoration: underline;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 600;
+  color: #101828;
+  margin-top: 16px;
+}
+
+/* Galeri - Figma: 292x312px, Gap: 48px */
+
+
+.gallery::-webkit-scrollbar {
+  display: none; /* Chrome/Safari için gizle */
+}
+
+
+
+.gallery {
+  display: flex;
+  gap: 48px; 
+  margin-bottom: 28px;
+}
+
+/* Her bir resmin dış sarmalayıcısı */
+.imageWrapper {
+  width: 292px;  /* Figma ölçüsü */
+  height: 312px; /* Figma ölçüsü */
+  border-radius: 10px;
+  overflow: hidden; /* Köşelerin kesilmesi için ŞART */
+  flex-shrink: 0;
+}
+
+/* Resmin kendisi */
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Resmi sündürmeden doldurur */
+  display: block;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #475467;
+  margin-bottom: 44px;
+  max-width: 100%; /* Açıklamanın çok yayılmasını engellemek istersen sınırlayabilirsin */
+}
+
+/* Sekmeler (Tabs) */
+.tabs {
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid #eaecf0;
+  margin-bottom: 44px;
+}
+
+.tab {
+  padding-bottom: 24px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #101828;
+  position: relative;
+}
+
+.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #e44848;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; /* Yükseklikleri eşitler */
+  gap: 40px;            /* Figma gap */
+  width: 100%;
+  max-width: 1312px;    /* 631 + 40 + 641 */
+  margin: 44px auto 0;  /* Ortala */
+  padding: 0 16px;      /* Kenarlara yapışmasın diye minik bir pay */
+  box-sizing: border-box;
+}
+
+.leftContent {
+  /* Figma oranı: 631 / 1272 (toplam genişlik) ≈ %49.6 */
+  flex: 0 1 49.6%; 
+  min-width: 0;
+}
+
+.rightContent {
+  /* Figma oranı: 641 / 1272 ≈ %50.4 */
+  flex: 0 1 50.4%;
+  min-width: 0;
+}
+
+/* Loading */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.bookingFormWrapper {
+  border: 1px solid #dadde1;
+  padding: 24px;
+  border-radius: 10px;
+}
+
+.formTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #101828;
+}
+
+.formSubtitle {
+  color: #6c7275;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.placeholderForm {
+  color: #999;
+  font-style: italic;
+}

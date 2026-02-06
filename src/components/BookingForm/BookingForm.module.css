@@ -1,0 +1,212 @@
+/* --- Form Genel Yapısı --- */
+.formContainer {
+  border: 1px solid rgba(16, 24, 40, 0.2);
+  border-radius: 10px;
+  padding: 44px;
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 641px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #475467;
+  margin-bottom: 24px;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f7f7f7;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+}
+
+.textarea {
+  height: 114px;
+  resize: none;
+}
+
+.submitBtn {
+  background-color: #e44848; 
+  color: white;
+  padding: 16px 60px;
+  border-radius: 200px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 24px;
+  transition: background-color 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #d84343;
+}
+
+/* --- Takvim (React-Datepicker) Ana Alan --- */
+.dateWrapper {
+  position: relative;
+}
+
+.dateWrapper :global(.react-datepicker-wrapper) {
+  width: 100%;
+}
+
+:global(.react-datepicker) {
+  width: 285px !important;
+  height: auto !important; 
+  background-color: #FFFFFF !important;
+  border: 1px solid #DADDE1 !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+  font-family: 'Inter', sans-serif !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Takvimin Pozisyonu */
+:global(.react-datepicker-popper) {
+  position: absolute !important;
+  transform: none !important; 
+  top: 100% !important;
+  left: 0 !important;
+  margin-top: 12px !important; /* Üçgenin sığması için boşluk artırıldı */
+  z-index: 100 !important;
+}
+
+/* --- ÜÇGEN (TRIANGLE) AYARLARI --- */
+:global(.react-datepicker__triangle) {
+  display: block !important; /* Üçgeni geri getirdik */
+  fill: #FFFFFF !important;
+  color: #FFFFFF !important;
+  stroke: #DADDE1 !important; /* Kenar çizgisi Figma ile uyumlu */
+  left: 150px !important; /* Input'un başına yakın hizalama */
+}
+
+:global(.react-datepicker__header) {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #DADDE1 !important;
+  padding: 0 0 8px 0 !important;
+  margin-bottom: 8px !important;
+  
+}
+:global(.react-datepicker__header__dropdown) {
+  
+  padding: 5px ;
+}
+
+:global(.react-datepicker__current-month) {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: #101828 !important;
+  
+}
+
+/* Gün İsimleri */
+:global(.react-datepicker__day-names) {
+  display: flex;
+  justify-content: space-between;
+}
+:global(.react-datepicker__day-name) {
+  color: #475467 !important;
+  font-weight: 600 !important;
+  width: 36px !important; /* 3 harf için bir tık genişlettik */
+  font-size: 11px !important; /* Bir tık küçülttük ki sığsın */
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important; /* Figma'daki o temiz duruş için */
+  margin: 1px !important;
+}
+/* Gün kutucuklarını da 36px ile hizalayalım */
+:global(.react-datepicker__day) {
+  width: 36px !important; 
+  height: 36px !important;
+  line-height: 36px !important;
+  border-radius: 50% !important;
+  margin: 1px !important;
+}
+
+/* Günlerin Yerleşimi */
+:global(.react-datepicker__month) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+:global(.react-datepicker__week) {
+  display: flex;
+  justify-content: space-between;
+}
+
+:global(.react-datepicker__day) {
+  width: 34px !important; 
+  height: 28px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: #101828 !important;
+ 
+  border-radius: 32px !important;
+}
+
+/* --- SEÇİM VE ODAK AYARLARI --- */
+
+/* 1. Gerçekten seçilen gün (Eylül 16) */
+:global(.react-datepicker__day--selected) {
+  background-color: #475467 !important; 
+  color: #FFFFFF !important;
+}
+
+/* 2. Diğer aylardaki kafa karıştıran mavi odağı temizliyoruz */
+:global(.react-datepicker__day--keyboard-selected) {
+  background-color: transparent !important; 
+  color: #101828 !important;
+  border: none !important;
+}
+
+
+
+/* Pasif Günler */
+:global(.react-datepicker__day--disabled) {
+  color: rgba(16, 24, 40, 0.2) !important;
+}
+
+/* --- NAVİGASYON OKLARI --- */
+:global(.react-datepicker__navigation) {
+  top: 15px !important;
+  display: flex !important;
+  visibility: visible !important; 
+}
+
+:global(.react-datepicker__navigation--previous) {
+  left: 10px !important;
+}
+
+:global(.react-datepicker__navigation--next) {
+  right: 10px !important;
+}
+
+:global(.react-datepicker__navigation-icon::before) {
+  border-color: #475467 !important;
+  border-width: 2px 2px 0 0 !important;
+  height: 8px !important;
+  width: 8px !important;
+}

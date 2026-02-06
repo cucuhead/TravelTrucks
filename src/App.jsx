@@ -1,25 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
-import HomePage from './pages/HomePage/HomePage.jsx';
-import CatalogPage from './pages/CatalogPage/CatalogPage.jsx';
-import DetailsPage from './pages/DetailsPage/DetailsPage.jsx';
+import Header from "./components/Header/Header";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   return (
-    <div className="app-container">
-      {/* Header her zaman en üstte görünecek */}
-      <Header />
-      
+    <>
+      <Header /> {/* Header her sayfada görünsün diye dışarıda tutuyoruz */}
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/:id" element={<DetailsPage />} />
-          {/* Tanımlanmamış tüm yolları Ana Sayfaya yönlendiriyoruz */}
-          <Route path="*" element={<HomePage />} />
-        </Routes>
+        <AppRouter />
       </main>
-    </div>
+    </>
   );
 }
 

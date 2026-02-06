@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  background-color: #f7f7f7;
+  padding: 44px 80px;      /* Figma değerleri */
+  border-radius: 10px;
+ width: 100%; /* Üst kapsayıcı ne derse o kadar olsun */
+  max-width: 631px;
+  height: 100%;
+       
+          
+  box-sizing: border-box;  /* Padding'in genişliği şişirmesini engeller */
+}
+
+.badgeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background-color: #ffffff; /* Rozetler arka plandan ayrılsın diye beyaz kalmalı */
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #101828;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.detailsTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #101828;
+}
+
+.divider {
+  height: 1px;
+  background-color: #eaecf0;
+  margin-bottom: 24px;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+}
+
+.detailsItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  color: #101828;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
