@@ -1,0 +1,50 @@
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 44px; /* Yorumlar arası geniş boşluk */
+  list-style: none;
+  padding: 0;
+}
+
+.reviewerHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #F2F4F7;
+  color: #E44848; /* Figma'daki o kırmızımsı harf rengi */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 18px;
+  color: #101828;
+  margin: 0 0 4px 0;
+}
+
+.starsBox {
+  display: flex;
+  gap: 4px;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.comment {
+  color: #475467;
+  line-height: 1.5;
+  font-size: 16px;
+}

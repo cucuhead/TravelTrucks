@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCamperById } from "../../redux/operations";
 import { selectCurrentCamper, selectIsLoading } from "../../redux/selectors";
 
-// Bileşenleri Import Ediyoruz
+// Bileşenler
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures";
-import BookingForm from "../../components/BookingForm/BookingForm"; // Yeni kuracağın yer
+import BookingForm from "../../components/BookingForm/BookingForm";
+import CamperReviews from "../../components/CamperReviews/CamperReviews"; // Ekledik
 
 // İkonlar
 import starIcon from "../../assets/icons/star.svg";
@@ -81,21 +82,18 @@ const DetailsPage = () => {
         </button>
       </div>
 
-      {/* Alt İçerik Alanı - Figma'daki yan yana (Flex) yapı */}
+      {/* Alt İçerik Alanı */}
       <div className={css.contentWrapper}>
         <div className={css.leftContent}>
           {activeTab === "features" ? (
             <CamperFeatures camper={camper} />
           ) : (
-            <div className={css.reviewsPlaceholder}>
-              {/* Buraya CamperReviews gelecek, şimdilik placeholder */}
-              <p>Reviews content will be here...</p>
-            </div>
+            /* reviews dizisi boşsa bile hata vermemesi için koruma */
+            <CamperReviews reviews={camper.reviews || []} /> 
           )}
         </div>
 
         <div className={css.rightContent}>
-          {/* Rezervasyon Formu Bileşeni Artık Burada */}
           <BookingForm />
         </div>
       </div>
