@@ -1,6 +1,6 @@
 .hero {
   /* Header yüksekliğini (yaklaşık 72px) çıkararak tam ekran yapıyoruz */
-  height: calc(100vh - 72px); 
+  height: calc(100vh - 81px); 
   /* Arka plan görseli ve üzerine hafif bir karartma (yazıların okunması için) */
   background-image: linear-gradient(rgba(16, 24, 40, 0.4), rgba(16, 24, 40, 0.4)), 
                     url('../../assets/hero-bg.jpg');
