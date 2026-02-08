@@ -14,6 +14,7 @@ const campersSlice = createSlice({
     },
     loading: false,
     error: null,
+    hasMore: true, // Listenin devamı var mı kontrolü için ekledik
   },
   reducers: {
     setFilters: (state, action) => {
@@ -27,24 +28,41 @@ const campersSlice = createSlice({
         state.favorites.push(id);
       }
     },
+    // Filtre değiştiğinde veya yeni arama başladığında listeyi temizlemek için
+    resetItems: (state) => {
+      state.items = [];
+      state.hasMore = true;
+    }
   },
   extraReducers: (builder) => {
     builder
-      // Tüm karavanları getirme
-      .addCase(fetchCampers.pending, (state) => {
+      .addCase(fetchCampers.pending, (state, action) => {
         state.loading = true;
         state.error = null;
-        state.items = []; 
+        // Eğer 1. sayfa isteniyorsa (yeni arama), eski listeyi temizle
+        // Değilse (Load More), eski liste kalsın ki kullanıcı zıplama yaşamasın
+        if (action.meta.arg.page === 1) {
+          state.items = [];
+        }
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload.items || action.payload; 
+        const newItems = action.payload.items || action.payload;
+        
+        // 1. Sayfaysa listeyi yenile, değilse eski listeye ekle
+        if (action.payload.page === 1) {
+          state.items = newItems;
+        } else {
+          state.items = [...state.items, ...newItems];
+        }
+
+        // Eğer gelen veri limitimizden (4) azsa, daha fazla veri yok demektir
+        state.hasMore = newItems.length === 4;
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // TEKİL karavan getirme (Hata buradaydı, aradaki ; işaretlerini kaldırdım)
       .addCase(fetchCamperById.pending, (state) => {
         state.loading = true;
         state.currentCamper = null; 
@@ -62,5 +80,5 @@ const campersSlice = createSlice({
   },
 });
 
-export const { setFilters, toggleFavorite } = campersSlice.actions;
+export const { setFilters, toggleFavorite, resetItems } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

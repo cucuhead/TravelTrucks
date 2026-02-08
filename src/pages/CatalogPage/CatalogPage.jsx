@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/operations";
 import { selectCampers, selectIsLoading } from "../../redux/selectors";
@@ -6,7 +6,7 @@ import { setFilters } from "../../redux/slices/campersSlice";
 import CamperCard from "../../components/CamperCard/CamperCard";
 import css from "./CatalogPage.module.css";
 
-// Yeni ve Temiz İkon Importları
+// İkon importlarını aynen koruyoruz...
 import mapPinIcon from "../../assets/icons/map.svg";
 import acIcon from "../../assets/icons/ac.svg";
 import diagramIcon from "../../assets/icons/diagram.svg";
@@ -21,17 +21,18 @@ const CatalogPage = () => {
   const dispatch = useDispatch();
   const campersFromStore = useSelector(selectCampers);
   const isLoading = useSelector(selectIsLoading);
-  
   const activeFilters = useSelector((state) => state.campers.filters);
+  const hasMore = useSelector((state) => state.campers.hasMore); // Yeni eklediğimiz kontrol
 
   // UI Local State
   const [localLocation, setLocalLocation] = useState(activeFilters.location);
   const [localEquipment, setLocalEquipment] = useState(activeFilters.equipment);
   const [localType, setLocalType] = useState(activeFilters.type);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [page, setPage] = useState(1); // visibleCount yerine gerçek sayfa takibi
 
+  // İlk yüklemede 1. sayfayı çek
   useEffect(() => {
-    dispatch(fetchCampers(activeFilters));
+    dispatch(fetchCampers({ ...activeFilters, page: 1 }));
   }, [dispatch]);
 
   const handleTypeSelect = (id) => {
@@ -44,17 +45,7 @@ const CatalogPage = () => {
     );
   };
 
-  const filteredCampers = useMemo(() => {
-    if (!campersFromStore) return [];
-    return campersFromStore.filter((camper) => {
-      if (activeFilters.type && camper.form !== activeFilters.type) return false;
-      return activeFilters.equipment.every((eq) => {
-        if (eq === "transmission") return camper.transmission === "automatic";
-        return camper[eq] === true;
-      });
-    });
-  }, [campersFromStore, activeFilters]);
-
+  // Search butonu: Sayfayı 1'e sıfırla ve yeni filtrelerle ara
   const handleSearch = () => {
     const searchParams = {
       location: localLocation.trim(),
@@ -63,11 +54,18 @@ const CatalogPage = () => {
     };
 
     dispatch(setFilters(searchParams));
-    dispatch(fetchCampers(searchParams)); 
-    setVisibleCount(4);
+    setPage(1); // Sayfa numarasını başa sar
+    dispatch(fetchCampers({ ...searchParams, page: 1 })); 
   };
 
-  // İkon Eşleştirmeleri Güncellendi
+  // Load More butonu: Sayfayı artır ve yeni veriyi çek
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    dispatch(fetchCampers({ ...activeFilters, page: nextPage }));
+  };
+
+  // İkon verilerini aynen koruyoruz...
   const equipmentData = [
     { id: "AC", label: "AC", icon: acIcon },
     { id: "transmission", label: "Automatic", icon: diagramIcon },
@@ -85,6 +83,7 @@ const CatalogPage = () => {
   return (
     <div className={css.container}>
       <aside className={css.sidebar}>
+        {/* Sidebar içeriği aynen kalıyor... */}
         <div className={css.locationSection}>
           <label className={css.locationLabel}>Location</label>
           <div className={css.inputWrapper}>
@@ -146,26 +145,25 @@ const CatalogPage = () => {
       </aside>
 
       <main className={css.content}>
-        {/* Yarın buradaki infoText yerine karavanlı loader gelecek */}
-        {isLoading && <p className={css.infoText}>Loading vehicles...</p>}
+        {isLoading && page === 1 && <p className={css.infoText}>Loading vehicles...</p>}
         
         <div className={css.list}>
-          {filteredCampers.length > 0 ? (
-            filteredCampers
-              .slice(0, visibleCount)
-              .map((camper) => <CamperCard key={camper.id} camper={camper} />)
+          {campersFromStore.length > 0 ? (
+            campersFromStore.map((camper) => <CamperCard key={camper.id} camper={camper} />)
           ) : (
             !isLoading && <p className={css.noResults}>No campers found.</p>
           )}
         </div>
 
-        {filteredCampers.length > visibleCount && !isLoading && (
+        {/* hasMore kontrolü ve Loading durumu */}
+        {hasMore && campersFromStore.length > 0 && (
           <button 
             className={css.loadMore} 
-            onClick={() => setVisibleCount(prev => prev + 4)}
-            style={{ cursor: "pointer" }}
+            onClick={handleLoadMore}
+            disabled={isLoading}
+            style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
           >
-            Load more
+            {isLoading ? "Loading..." : "Load more"}
           </button>
         )}
       </main>
