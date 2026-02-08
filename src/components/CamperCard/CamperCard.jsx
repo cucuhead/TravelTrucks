@@ -4,37 +4,20 @@ import { toggleFavorite } from "../../redux/slices/campersSlice";
 import { selectFavorites } from "../../redux/selectors.js";
 import css from "./CamperCard.module.css";
 
-// Icons
-import starIcon from "../../assets/icons/star.svg";
+// Yeni ve Temiz İkon Importları
+import starIcon from "../../assets/icons/star-full.svg"; 
 import mapIcon from "../../assets/icons/map.svg";
 import transmissionIcon from "../../assets/icons/diagram.svg"; 
-import engineIcon from "../../assets/icons/Group.svg"; 
-import acIcon from "../../assets/icons/wind.svg"; 
-import kitchenIcon from "../../assets/icons/cup-hot.svg"; 
-import bathroomIcon from "../../assets/icons/ph_shower.svg";
+import engineIcon from "../../assets/icons/fuel.svg"; // Group.svg -> fuel.svg oldu
+import acIcon from "../../assets/icons/ac.svg"; // wind.svg -> ac.svg oldu
+import kitchenIcon from "../../assets/icons/kitchen.svg"; // cup-hot.svg -> kitchen.svg oldu
+import bathroomIcon from "../../assets/icons/bathroom.svg"; // ph_shower.svg -> bathroom.svg oldu
 import tvIcon from "../../assets/icons/tv.svg";
-
-// SVG Bileşeni - Dosya dışında tanımlamak daha sağlıklıdır
-const HeartIcon = ({ isFavorite }) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill={isFavorite ? "#E44848" : "none"}
-    stroke={isFavorite ? "#E44848" : "#101828"}
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ pointerEvents: 'none' }} // Tıklamayı engellememesi için
-  >
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-  </svg>
-);
+import heartDefault from "../../assets/icons/heart-default.svg";
+import heartActive from "../../assets/icons/heart-active.svg";
 
 const CamperCard = ({ camper }) => {
   const dispatch = useDispatch();
-  // Selector'un varlığından ve doğru çalıştığından emin ol
   const favorites = useSelector(selectFavorites) || [];
   
   const isFavorite = favorites.includes(camper.id);
@@ -45,7 +28,6 @@ const CamperCard = ({ camper }) => {
     str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
   const handleFavoriteClick = (e) => {
-    // Event bubbling'i engellemek gerekebilir
     e.preventDefault(); 
     dispatch(toggleFavorite(camper.id));
   };
@@ -76,8 +58,13 @@ const CamperCard = ({ camper }) => {
                 onClick={handleFavoriteClick}
                 type="button"
                 aria-label="favorite"
+                style={{ cursor: "pointer" }} // Mülakat kriteri
               >
-                <HeartIcon isFavorite={isFavorite} />
+                {/* SVG bileşeni yerine doğrudan Figma ikonlarını kullanıyoruz */}
+                <img 
+                  src={isFavorite ? heartActive : heartDefault} 
+                  alt="favorite" 
+                />
               </button>
             </div>
           </div>
@@ -129,6 +116,7 @@ const CamperCard = ({ camper }) => {
           target="_blank"
           rel="noopener noreferrer"
           className={css.showMore}
+          style={{ cursor: "pointer" }} // Mülakat kriteri
         >
           Show more
         </Link>

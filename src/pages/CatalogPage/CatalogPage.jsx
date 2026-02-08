@@ -1,38 +1,36 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/operations";
-import { selectCampers, selectIsLoading } from "../../redux/selectors"; // selectFilters selector'ını eklemeyi unutmayın
+import { selectCampers, selectIsLoading } from "../../redux/selectors";
 import { setFilters } from "../../redux/slices/campersSlice";
 import CamperCard from "../../components/CamperCard/CamperCard";
 import css from "./CatalogPage.module.css";
 
-// İkon importları
+// Yeni ve Temiz İkon Importları
 import mapPinIcon from "../../assets/icons/map.svg";
-import windIcon from "../../assets/icons/wind.svg";
+import acIcon from "../../assets/icons/ac.svg";
 import diagramIcon from "../../assets/icons/diagram.svg";
-import cupHotIcon from "../../assets/icons/cup-hot.svg";
+import kitchenIcon from "../../assets/icons/kitchen.svg";
 import tvIcon from "../../assets/icons/tv.svg";
-import showerIcon from "../../assets/icons/ph_shower.svg";
-import vanIcon from "../../assets/icons/bi_grid-1x2.svg";
-import fullyIcon from "../../assets/icons/bi_grid (1).svg";
-import alcoveIcon from "../../assets/icons/bi_grid-3x3-gap.svg";
+import bathroomIcon from "../../assets/icons/bathroom.svg";
+import vanIcon from "../../assets/icons/type-van.svg";
+import fullyIcon from "../../assets/icons/type-fully.svg";
+import alcoveIcon from "../../assets/icons/type-alcove.svg";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const campersFromStore = useSelector(selectCampers);
   const isLoading = useSelector(selectIsLoading);
   
-  // Redux'taki filtreleri alıyoruz (Selector'unuz yoksa state.campers.filters olarak kullanın)
   const activeFilters = useSelector((state) => state.campers.filters);
 
-  // UI Local State (Yazarken anlık değişen ama Search'e basınca Redux'a giden alanlar)
+  // UI Local State
   const [localLocation, setLocalLocation] = useState(activeFilters.location);
   const [localEquipment, setLocalEquipment] = useState(activeFilters.equipment);
   const [localType, setLocalType] = useState(activeFilters.type);
   const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
-    // Sayfa açıldığında mevcut filtrelerle veri çek
     dispatch(fetchCampers(activeFilters));
   }, [dispatch]);
 
@@ -46,7 +44,6 @@ const CatalogPage = () => {
     );
   };
 
-  // Frontend Süzgeci (MockAPI kısıtları için)
   const filteredCampers = useMemo(() => {
     if (!campersFromStore) return [];
     return campersFromStore.filter((camper) => {
@@ -65,19 +62,18 @@ const CatalogPage = () => {
       equipment: [...localEquipment],
     };
 
-    // ÖDEV KRİTERİ: Filtreleri global state'e yazıyoruz
     dispatch(setFilters(searchParams));
-    // ÖDEV KRİTERİ: Yeni filtre ile backend'den veri çekiyoruz
     dispatch(fetchCampers(searchParams)); 
     setVisibleCount(4);
   };
 
+  // İkon Eşleştirmeleri Güncellendi
   const equipmentData = [
-    { id: "AC", label: "AC", icon: windIcon },
+    { id: "AC", label: "AC", icon: acIcon },
     { id: "transmission", label: "Automatic", icon: diagramIcon },
-    { id: "kitchen", label: "Kitchen", icon: cupHotIcon },
+    { id: "kitchen", label: "Kitchen", icon: kitchenIcon },
     { id: "TV", label: "TV", icon: tvIcon },
-    { id: "bathroom", label: "Bathroom", icon: showerIcon },
+    { id: "bathroom", label: "Bathroom", icon: bathroomIcon },
   ];
 
   const typeData = [
@@ -150,7 +146,9 @@ const CatalogPage = () => {
       </aside>
 
       <main className={css.content}>
+        {/* Yarın buradaki infoText yerine karavanlı loader gelecek */}
         {isLoading && <p className={css.infoText}>Loading vehicles...</p>}
+        
         <div className={css.list}>
           {filteredCampers.length > 0 ? (
             filteredCampers
@@ -162,7 +160,11 @@ const CatalogPage = () => {
         </div>
 
         {filteredCampers.length > visibleCount && !isLoading && (
-          <button className={css.loadMore} onClick={() => setVisibleCount(prev => prev + 4)}>
+          <button 
+            className={css.loadMore} 
+            onClick={() => setVisibleCount(prev => prev + 4)}
+            style={{ cursor: "pointer" }}
+          >
             Load more
           </button>
         )}
