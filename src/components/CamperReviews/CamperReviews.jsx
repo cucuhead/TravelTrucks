@@ -1,5 +1,5 @@
-import starFull from "../../assets/icons/Rating (4).svg"; // Dolu yıldız
-import starEmpty from "../../assets/icons/Rating (3).svg"; // Boş yıldız
+import starFull from "../../assets/icons/star-full.svg"; // Rating (6).svg -> star-full.svg oldu
+import starEmpty from "../../assets/icons/star-empty.svg"; // Rating (5).svg -> star-empty.svg oldu
 import css from "./CamperReviews.module.css";
 
 const CamperReviews = ({ reviews }) => {
@@ -29,7 +29,9 @@ const CamperReviews = ({ reviews }) => {
             </div>
             <div className={css.reviewerInfo}>
               <p className={css.name}>{review.reviewer_name}</p>
-              <div className={css.starsBox}>{renderStars(review.reviewer_rating)}</div>
+              <div className={css.starsBox}>
+                {renderStars(review.reviewer_rating)}
+              </div>
             </div>
           </div>
           <p className={css.comment}>{review.comment}</p>

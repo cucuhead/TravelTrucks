@@ -7,10 +7,10 @@ import { selectCurrentCamper, selectIsLoading } from "../../redux/selectors";
 // Bileşenler
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures";
 import BookingForm from "../../components/BookingForm/BookingForm";
-import CamperReviews from "../../components/CamperReviews/CamperReviews"; // Ekledik
+import CamperReviews from "../../components/CamperReviews/CamperReviews";
 
-// İkonlar
-import starIcon from "../../assets/icons/star.svg";
+// İkonlar - Yeni isimlerle güncellendi
+import starIcon from "../../assets/icons/star-full.svg"; // Hata veren star.svg burasıydı
 import mapIcon from "../../assets/icons/map.svg";
 
 import css from "./DetailsPage.module.css";
@@ -28,6 +28,7 @@ const DetailsPage = () => {
     dispatch(fetchCamperById(id));
   }, [dispatch, id]);
 
+  // Yarın buradaki düz Loading... yazısını karavan animasyonu ile değiştireceğiz
   if (isLoading) return <div className={css.loader}>Loading...</div>;
   if (!camper) return null;
 
@@ -51,6 +52,7 @@ const DetailsPage = () => {
           </div>
         </div>
 
+        {/* Fiyat Formatı - Teknik ödev kriteri */}
         <p className={css.price}>€{Number(camper.price).toFixed(2)}</p>
       </div>
 
@@ -71,12 +73,14 @@ const DetailsPage = () => {
         <button 
           className={`${css.tab} ${activeTab === "features" ? css.activeTab : ""}`}
           onClick={() => setActiveTab("features")}
+          style={{ cursor: "pointer" }} // Kullanıcı deneyimi artısı
         >
           Features
         </button>
         <button 
           className={`${css.tab} ${activeTab === "reviews" ? css.activeTab : ""}`}
           onClick={() => setActiveTab("reviews")}
+          style={{ cursor: "pointer" }}
         >
           Reviews
         </button>
@@ -88,7 +92,6 @@ const DetailsPage = () => {
           {activeTab === "features" ? (
             <CamperFeatures camper={camper} />
           ) : (
-            /* reviews dizisi boşsa bile hata vermemesi için koruma */
             <CamperReviews reviews={camper.reviews || []} /> 
           )}
         </div>
