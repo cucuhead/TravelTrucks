@@ -14,8 +14,13 @@ export default function Header() {
           Travel<span className={css.logoTrucks}>Trucks</span>
         </Link>
         <div className={css.menu}>
-          <NavLink to="/" className={buildLinkClass}>Home</NavLink>
-          <NavLink to="/catalog" className={buildLinkClass}>Catalog</NavLink>
+          {/* 'end' prop'u sayesinde detay sayfasında bu linkler aktif görünmeyecek */}
+          <NavLink to="/" className={buildLinkClass} end>
+            Home
+          </NavLink>
+          <NavLink to="/catalog" className={buildLinkClass} end>
+            Catalog
+          </NavLink>
         </div>
       </nav>
     </header>

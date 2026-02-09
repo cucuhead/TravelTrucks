@@ -4,9 +4,10 @@ import { fetchCampers } from "../../redux/operations";
 import { selectCampers, selectIsLoading } from "../../redux/selectors";
 import { setFilters } from "../../redux/slices/campersSlice";
 import CamperCard from "../../components/CamperCard/CamperCard";
+import Loader from "../../components/Loader/Loader"; // Loader'ı ekledik
 import css from "./CatalogPage.module.css";
 
-// İkon importlarını aynen koruyoruz...
+// İkon importları
 import mapPinIcon from "../../assets/icons/map.svg";
 import acIcon from "../../assets/icons/ac.svg";
 import diagramIcon from "../../assets/icons/diagram.svg";
@@ -22,15 +23,16 @@ const CatalogPage = () => {
   const campersFromStore = useSelector(selectCampers);
   const isLoading = useSelector(selectIsLoading);
   const activeFilters = useSelector((state) => state.campers.filters);
-  const hasMore = useSelector((state) => state.campers.hasMore); // Yeni eklediğimiz kontrol
+  const hasMore = useSelector((state) => state.campers.hasMore);
 
-  // UI Local State
   const [localLocation, setLocalLocation] = useState(activeFilters.location);
   const [localEquipment, setLocalEquipment] = useState(activeFilters.equipment);
   const [localType, setLocalType] = useState(activeFilters.type);
-  const [page, setPage] = useState(1); // visibleCount yerine gerçek sayfa takibi
+  const [page, setPage] = useState(1);
 
-  // İlk yüklemede 1. sayfayı çek
+  // SCROLL KONTROLÜ İÇİN: Sonuç var mı?
+  const hasResults = campersFromStore.length > 0;
+
   useEffect(() => {
     dispatch(fetchCampers({ ...activeFilters, page: 1 }));
   }, [dispatch]);
@@ -45,27 +47,23 @@ const CatalogPage = () => {
     );
   };
 
-  // Search butonu: Sayfayı 1'e sıfırla ve yeni filtrelerle ara
   const handleSearch = () => {
     const searchParams = {
       location: localLocation.trim(),
       type: localType,
       equipment: [...localEquipment],
     };
-
     dispatch(setFilters(searchParams));
-    setPage(1); // Sayfa numarasını başa sar
+    setPage(1);
     dispatch(fetchCampers({ ...searchParams, page: 1 })); 
   };
 
-  // Load More butonu: Sayfayı artır ve yeni veriyi çek
   const handleLoadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
     dispatch(fetchCampers({ ...activeFilters, page: nextPage }));
   };
 
-  // İkon verilerini aynen koruyoruz...
   const equipmentData = [
     { id: "AC", label: "AC", icon: acIcon },
     { id: "transmission", label: "Automatic", icon: diagramIcon },
@@ -81,16 +79,16 @@ const CatalogPage = () => {
   ];
 
   return (
-    <div className={css.container}>
+    // noScroll sınıfını burada hasResults'a göre ekliyoruz
+    <div className={`${css.container} ${!hasResults && !isLoading ? css.noScroll : ""}`}>
       <aside className={css.sidebar}>
-        {/* Sidebar içeriği aynen kalıyor... */}
         <div className={css.locationSection}>
           <label className={css.locationLabel}>Location</label>
           <div className={css.inputWrapper}>
             <img src={mapPinIcon} className={css.mapIcon} alt="location" />
             <input
               type="text"
-              placeholder="City, Country"
+              placeholder="City"
               className={css.locationInput}
               value={localLocation}
               onChange={(e) => setLocalLocation(e.target.value)}
@@ -109,7 +107,6 @@ const CatalogPage = () => {
                   key={f.id}
                   type="button"
                   onClick={() => toggleEquipment(f.id)}
-                  style={{ cursor: "pointer" }}
                   className={`${css.filterItem} ${localEquipment.includes(f.id) ? css.active : ""}`}
                 >
                   <img src={f.icon} alt={f.label} />
@@ -128,7 +125,6 @@ const CatalogPage = () => {
                   key={f.id}
                   type="button"
                   onClick={() => handleTypeSelect(f.id)}
-                  style={{ cursor: "pointer" }}
                   className={`${css.filterItem} ${localType === f.id ? css.active : ""}`}
                 >
                   <img src={f.icon} alt={f.label} />
@@ -138,32 +134,42 @@ const CatalogPage = () => {
             </div>
           </div>
 
-          <button className={css.searchBtn} onClick={handleSearch} style={{ cursor: "pointer" }}>
+          <button className={css.searchBtn} onClick={handleSearch}>
             Search
           </button>
         </div>
       </aside>
 
       <main className={css.content}>
-        {isLoading && page === 1 && <p className={css.infoText}>Loading vehicles...</p>}
+        {/* İlk yükleme loader'ı merkezi alanda */}
+        {isLoading && page === 1 && (
+          <div className={css.loaderCentered}>
+            <Loader />
+          </div>
+        )}
         
         <div className={css.list}>
-          {campersFromStore.length > 0 ? (
+          {hasResults ? (
             campersFromStore.map((camper) => <CamperCard key={camper.id} camper={camper} />)
           ) : (
-            !isLoading && <p className={css.noResults}>No campers found.</p>
+            !isLoading && (
+              <div className={css.noResults}>
+                <p>No campers found with selected filters.</p>
+              </div>
+            )
           )}
         </div>
 
-        {/* hasMore kontrolü ve Loading durumu */}
-        {hasMore && campersFromStore.length > 0 && (
-          <button 
-            className={css.loadMore} 
-            onClick={handleLoadMore}
-            disabled={isLoading}
-            style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
-          >
-            {isLoading ? "Loading..." : "Load more"}
+        {/* Sayfalamada buton üstünde loader */}
+        {isLoading && page > 1 && (
+          <div className={css.loaderCentered}>
+            <Loader />
+          </div>
+        )}
+
+        {hasMore && !isLoading && hasResults && (
+          <button className={css.loadMore} onClick={handleLoadMore}>
+            Load more
           </button>
         )}
       </main>

@@ -8,9 +8,10 @@ import { selectCurrentCamper, selectIsLoading } from "../../redux/selectors";
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import CamperReviews from "../../components/CamperReviews/CamperReviews";
+import Loader from "../../components/Loader/Loader"; // Yeni Loader'ımızı ekledik
 
-// İkonlar - Yeni isimlerle güncellendi
-import starIcon from "../../assets/icons/star-full.svg"; // Hata veren star.svg burasıydı
+// İkonlar
+import starIcon from "../../assets/icons/star-full.svg";
 import mapIcon from "../../assets/icons/map.svg";
 
 import css from "./DetailsPage.module.css";
@@ -28,9 +29,22 @@ const DetailsPage = () => {
     dispatch(fetchCamperById(id));
   }, [dispatch, id]);
 
-  // Yarın buradaki düz Loading... yazısını karavan animasyonu ile değiştireceğiz
-  if (isLoading) return <div className={css.loader}>Loading...</div>;
-  if (!camper) return null;
+  // Eski Loading... yazısı yerine profesyonel Loader bileşenimiz
+if (isLoading) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <Loader />
+    </div>
+  );
+}
+
+  if (!camper) {
+    return (
+      <div className={css.noData}>
+        <p>Camper details could not be found.</p>
+      </div>
+    );
+  }
 
   return (
     <section className={css.container}>
@@ -52,7 +66,7 @@ const DetailsPage = () => {
           </div>
         </div>
 
-        {/* Fiyat Formatı - Teknik ödev kriteri */}
+        {/* Fiyat Formatı - Teknik ödev kriteri (8000.00 şeklinde) */}
         <p className={css.price}>€{Number(camper.price).toFixed(2)}</p>
       </div>
 
@@ -73,7 +87,7 @@ const DetailsPage = () => {
         <button 
           className={`${css.tab} ${activeTab === "features" ? css.activeTab : ""}`}
           onClick={() => setActiveTab("features")}
-          style={{ cursor: "pointer" }} // Kullanıcı deneyimi artısı
+          style={{ cursor: "pointer" }}
         >
           Features
         </button>

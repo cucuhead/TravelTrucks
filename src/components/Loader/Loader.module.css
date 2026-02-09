@@ -1,0 +1,75 @@
+.loaderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  margin: auto;
+  /* Sayfa ortasında sabit kalması için opsiyonel: */
+  min-height: 80vh; 
+  width: 100%;
+}
+.movingContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.camper {
+  width: 100px; /* İkonun net görünmesi için ideal boyut */
+  height: auto;
+  z-index: 2;
+  /* Karavanın yolda motor sarsıntısı efekti */
+  animation: driveShake 0.5s infinite alternate ease-in-out;
+}
+
+.road {
+  width: 120px;
+  height: 4px;
+  background-color: #475467; /* Asfalt rengi */
+  border-radius: 4px;
+  margin-top: -8px; /* Karavanın yola tam basması için */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Yolun içindeki akış çizgileri */
+.line {
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.7);
+  top: 1px;
+  animation: moveRoad 0.7s infinite linear;
+}
+
+.line:nth-child(1) { left: -40%; }
+.line:nth-child(2) { left: 30%; animation-delay: 0.2s; }
+.line:nth-child(3) { left: 90%; animation-delay: 0.4s; }
+
+/* Animasyonlar */
+@keyframes driveShake {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+@keyframes moveRoad {
+  from { left: 140%; }
+  to { left: -40%; }
+}
+
+.text {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #101828;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.noScroll {
+  /* Loader'ın sayfa içinde çok küçük veya çok büyük kalmaması için */
+  min-height: 60vh;
+  width: 100%;
+  overflow: hidden; /* İçeriden taşmaları engeller */
+}
