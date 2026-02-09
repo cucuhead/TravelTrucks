@@ -17,8 +17,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 14px;
-  /* overflow: hidden; */
-
 }
 
 .title {
@@ -33,15 +31,31 @@
   margin-bottom: 24px;
 }
 
+/* --- INPUT VE TEXTAREA GÜNCELLEMESİ --- */
+
 .input, .textarea {
-  width: 90%;
+  width: 100%; /* Figma'ya tam uyum için %100 yapıldı */
   padding: 18px;
-  border-radius: 10px;
+  border-radius: 12px; /* Figma: 12px */
   border: none;
   background-color: #f7f7f7;
   font-size: 16px;
+  color: #101828; /* Yazılan metin rengi */
   outline: none;
   font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Tıklanmadan önce silik görünüm */
+.input::placeholder, .textarea::placeholder {
+  color: rgba(16, 24, 40, 0.4); 
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+/* Tıklandığında (Focus) daha koyu görünüm */
+.input:focus::placeholder, .textarea:focus::placeholder {
+  color: rgba(16, 24, 40, 0.8);
 }
 
 .textarea {
@@ -69,6 +83,7 @@
 /* --- Takvim (React-Datepicker) Ana Alan --- */
 .dateWrapper {
   position: relative;
+  width: 100%;
 }
 
 .dateWrapper :global(.react-datepicker-wrapper) {
@@ -92,17 +107,17 @@
   transform: none !important; 
   top: 100% !important;
   left: 0 !important;
-  margin-top: 12px !important; /* Üçgenin sığması için boşluk artırıldı */
+  margin-top: 12px !important;
   z-index: 100 !important;
 }
 
 /* --- ÜÇGEN (TRIANGLE) AYARLARI --- */
 :global(.react-datepicker__triangle) {
-  display: block !important; /* Üçgeni geri getirdik */
+  display: block !important;
   fill: #FFFFFF !important;
   color: #FFFFFF !important;
-  stroke: #DADDE1 !important; /* Kenar çizgisi Figma ile uyumlu */
-  left: 150px !important; /* Input'un başına yakın hizalama */
+  stroke: #DADDE1 !important;
+  left: 150px !important;
 }
 
 :global(.react-datepicker__header) {
@@ -110,18 +125,12 @@
   border-bottom: 1px solid #DADDE1 !important;
   padding: 0 0 8px 0 !important;
   margin-bottom: 8px !important;
-  
-}
-:global(.react-datepicker__header__dropdown) {
-  
-  padding: 5px ;
 }
 
 :global(.react-datepicker__current-month) {
   font-weight: 600 !important;
   font-size: 16px !important;
   color: #101828 !important;
-  
 }
 
 /* Gün İsimleri */
@@ -132,22 +141,14 @@
 :global(.react-datepicker__day-name) {
   color: #475467 !important;
   font-weight: 600 !important;
-  width: 36px !important; /* 3 harf için bir tık genişlettik */
-  font-size: 11px !important; /* Bir tık küçülttük ki sığsın */
+  width: 36px !important;
+  font-size: 11px !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.5px !important; /* Figma'daki o temiz duruş için */
-  margin: 1px !important;
-}
-/* Gün kutucuklarını da 36px ile hizalayalım */
-:global(.react-datepicker__day) {
-  width: 36px !important; 
-  height: 36px !important;
-  line-height: 36px !important;
-  border-radius: 50% !important;
+  letter-spacing: 0.5px !important;
   margin: 1px !important;
 }
 
-/* Günlerin Yerleşimi */
+/* Günler */
 :global(.react-datepicker__month) {
   display: flex;
   flex-direction: column;
@@ -160,51 +161,37 @@
 }
 
 :global(.react-datepicker__day) {
-  width: 34px !important; 
-  height: 28px !important;
+  width: 36px !important; 
+  height: 36px !important;
+  line-height: 36px !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
   color: #101828 !important;
- 
-  border-radius: 32px !important;
+  border-radius: 50% !important;
+  margin: 1px !important;
 }
 
-/* --- SEÇİM VE ODAK AYARLARI --- */
-
-/* 1. Gerçekten seçilen gün (Eylül 16) */
+/* SEÇİM AYARLARI */
 :global(.react-datepicker__day--selected) {
   background-color: #475467 !important; 
   color: #FFFFFF !important;
 }
 
-/* 2. Diğer aylardaki kafa karıştıran mavi odağı temizliyoruz */
 :global(.react-datepicker__day--keyboard-selected) {
   background-color: transparent !important; 
   color: #101828 !important;
   border: none !important;
 }
 
-
-
-/* Pasif Günler */
 :global(.react-datepicker__day--disabled) {
   color: rgba(16, 24, 40, 0.2) !important;
 }
 
-/* --- NAVİGASYON OKLARI --- */
+/* NAVİGASYON OKLARI */
 :global(.react-datepicker__navigation) {
   top: 15px !important;
   display: flex !important;
-  visibility: visible !important; 
-}
-
-:global(.react-datepicker__navigation--previous) {
-  left: 10px !important;
-}
-
-:global(.react-datepicker__navigation--next) {
-  right: 10px !important;
 }
 
 :global(.react-datepicker__navigation-icon::before) {

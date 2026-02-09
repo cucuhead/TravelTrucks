@@ -170,3 +170,17 @@
   color: #999;
   font-style: italic;
 }
+
+.loaderCentered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px; /* Yüklenirken sayfa çok basık durmasın */
+}
+
+.noData {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #475467;
+}

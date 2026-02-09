@@ -7,43 +7,36 @@ export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
   async ({ page = 1, limit = 4, ...filters }, thunkAPI) => {
     try {
-      const params = new URLSearchParams();
+      // MockAPI'nin 12 sınırını aşmak için limit=50 ekledik
+      const response = await axios.get("/campers?limit=50");
+      let allCampers = response.data.items || response.data;
 
-      // 1. Sayfalandırma Parametreleri (Kritik Kriter)
-      params.append("page", page);
-      params.append("limit", limit);
+      const filteredCampers = allCampers.filter((camper) => {
+        if (filters.location && !camper.location.toLowerCase().includes(filters.location.toLowerCase())) {
+          return false;
+        }
+        if (filters.type && camper.form !== filters.type) {
+          return false;
+        }
+        if (filters.equipment?.length > 0) {
+          return filters.equipment.every((item) => {
+            if (item === "transmission") return camper.transmission === "automatic";
+            return camper[item] === true || camper[item] === "true";
+          });
+        }
+        return true;
+      });
 
-      // 2. Konum Filtresi
-      if (filters.location) {
-        params.append("location", filters.location);
-      }
+      // SADECE o sayfaya ait yeni verileri gönderiyoruz (0'dan değil, kaldığı yerden)
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
+      const paginatedItems = filteredCampers.slice(startIndex, endIndex);
 
-      // 3. Araç Tipi Filtresi (form)
-      if (filters.type) {
-        params.append("form", filters.type);
-      }
-
-      // 4. Ekipman Filtreleri
-      if (filters.equipment?.length > 0) {
-        filters.equipment.forEach((item) => {
-          if (item === "transmission") {
-            params.append("transmission", "automatic");
-          } else {
-            params.append(item, "true");
-          }
-        });
-      }
-
-      // MockAPI için query string oluşturma
-      const url = `/campers?${params.toString()}`;
-      
-      const response = await axios.get(url);
-      
-      // Önemli: Sayfalandırma yaparken sayfa numarasını da döndürelim ki 
-      // slice içinde yeni veriyi mi ekleyeceğiz yoksa listenin üzerine mi yazacağız bilelim.
       return {
-        items: response.data.items || response.data, // Bazı API'lar veriyi 'items' içinde döner
-        page
+        items: paginatedItems,
+        page,
+        // Toplamda hala gösterilmemiş veri var mı?
+        hasMore: filteredCampers.length > endIndex 
       };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

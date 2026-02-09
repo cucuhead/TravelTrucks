@@ -14,7 +14,7 @@ const campersSlice = createSlice({
     },
     loading: false,
     error: null,
-    hasMore: true, // Listenin devamı var mı kontrolü için ekledik
+    hasMore: true,
   },
   reducers: {
     setFilters: (state, action) => {
@@ -28,7 +28,6 @@ const campersSlice = createSlice({
         state.favorites.push(id);
       }
     },
-    // Filtre değiştiğinde veya yeni arama başladığında listeyi temizlemek için
     resetItems: (state) => {
       state.items = [];
       state.hasMore = true;
@@ -39,29 +38,28 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.pending, (state, action) => {
         state.loading = true;
         state.error = null;
-        // Eğer 1. sayfa isteniyorsa (yeni arama), eski listeyi temizle
-        // Değilse (Load More), eski liste kalsın ki kullanıcı zıplama yaşamasın
         if (action.meta.arg.page === 1) {
           state.items = [];
         }
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.loading = false;
-        const newItems = action.payload.items || action.payload;
+        const { items, page, hasMore } = action.payload;
         
-        // 1. Sayfaysa listeyi yenile, değilse eski listeye ekle
-        if (action.payload.page === 1) {
-          state.items = newItems;
+        if (page === 1) {
+          state.items = items;
         } else {
-          state.items = [...state.items, ...newItems];
+          // Yeni gelenleri eski listenin sonuna ekle (duplicate engellendi)
+          state.items = [...state.items, ...items];
         }
 
-        // Eğer gelen veri limitimizden (4) azsa, daha fazla veri yok demektir
-        state.hasMore = newItems.length === 4;
+        // operations.js'den gelen hasMore bilgisini kullanıyoruz
+        state.hasMore = hasMore;
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.hasMore = false;
       })
       .addCase(fetchCamperById.pending, (state) => {
         state.loading = true;
