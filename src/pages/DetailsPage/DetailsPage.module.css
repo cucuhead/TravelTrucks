@@ -172,12 +172,18 @@
 }
 
 .loaderCentered {
+  position: fixed;    /* Akıştan çıkar, ekrana sabitle */
+  top: 0;
+  left: 0;
+  width: 100vw;       /* Tüm genişliği kapla */
+  height: 100vh;      /* Tüm yüksekliği kapla */
+  background-color: #ffffff; /* Arkadaki Sidebar/Header'ı maskele */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px; /* Yüklenirken sayfa çok basık durmasın */
+  z-index: 9999;      /* Her şeyin (bileşenlerin) en üstünde dur */
+  overflow: hidden;   /* Kendi içinden scroll çıkmasını engelle */
 }
-
 .noData {
   text-align: center;
   padding: 50px;

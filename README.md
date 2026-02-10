@@ -1,93 +1,66 @@
-# TravelTrucks – Camper Rental App
+🚐 TravelTrucks - Camper Rental App
+TravelTrucks, karavan tutkunlarının hayallerindeki araçları bulmalarını, filtrelemelerini ve kolayca rezervasyon yapmalarını sağlayan modern bir web uygulamasıdır. Kullanıcı dostu arayüzü ve güçlü filtreleme özellikleriyle en iyi karavan kiralama deneyimini sunar.
 
-TravelTrucks, karavan kiralama alanında faaliyet gösteren bir şirket için geliştirilmiş bir frontend web uygulamasıdır.  
-Uygulama, kullanıcıların karavanları listeleyip filtreleyebileceği, favorilere ekleyebileceği ve detaylarını inceleyebileceği bir yapı sunar.
+🚀 Öne Çıkan Özellikler
+Dinamik Katalog: API üzerinden çekilen gerçek zamanlı karavan ilanları.
 
----
+Gelişmiş Filtreleme: Konum, araç tipi ve teknik donanımlara (Klima, Mutfak, TV, vb.) göre anlık arama.
 
-## 🚐 Proje Özeti
+Favori Yönetimi: Beğenilen araçları favorilere ekleme ve sayfa yenilense bile bu listeyi koruma (Redux Persist).
 
-Bu proje, React ve Redux kullanılarak geliştirilmiş bir karavan kiralama platformunun frontend kısmını kapsar.  
-Uygulama; ana sayfa, katalog sayfası ve karavan detay sayfasından oluşur.
+Detaylı İnceleme: Her aracın teknik özellikleri, fotoğraf galerisi ve kullanıcı yorumlarına ulaşım.
 
-Backend olarak verilen **MockAPI** kullanılmıştır.
+Akıllı Rezervasyon: Tarih seçimi ve anlık bildirim sistemi içeren entegre rezervasyon formu.
 
-API:  
-https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers
+Kesintisiz UX: Sayfalamada "Load More" desteği ve veri yükleme aşamasında profesyonel "Custom Loader" animasyonu.
 
----
+🛠️ Kullanılan Teknolojiler
+Core: React 18, Vite
 
-## 🛠 Kullanılan Teknolojiler
+State Management: Redux Toolkit, Redux Persist (Local Storage entegrasyonu için)
 
-- **React** (Vite)
-- **Redux Toolkit** (global state yönetimi)
-- **React Router** (sayfa yönlendirme)
-- **Axios** (API istekleri)
-- **CSS Modules** (stillendirme)
+Routing: React Router 6 (SPA yönlendirme yapısı)
 
----
+API Client: Axios
 
-## 📄 Sayfalar
+UI & Styling: CSS Modules (Bileşen tabanlı stil yönetimi), React Hot Toast (Bildirimler), React Datepicker
 
-### 🏠 Ana Sayfa (`/`)
-- Call to Action (CTA) banner
-- “View Now” butonu ile katalog sayfasına yönlendirme
+Icons: Figma tasarımına sadık kalınarak optimize edilmiş SVG setleri.
 
-### 📋 Katalog Sayfası (`/catalog`)
-- Tüm karavanların listelenmesi
-- Filtreleme seçenekleri:
-  - Konum (metin)
-  - Araç tipi (tek seçim)
-  - Ek özellikler (çoklu seçim: AC, Kitchen, Bathroom, TV, Automatic)
-- “Load More” butonu ile kart yükleme
-- Favorilere ekleme özelliği
-- Fiyatların UI’da ondalıklı gösterimi (örn. 8000.00)
+🏗️ Kurulum ve Çalıştırma
+Projeyi yerel makinenizde çalıştırmak için şu adımları izleyin:
 
-### 🚐 Karavan Detay Sayfası (`/catalog/:id`)
-- Karavanın detaylı bilgileri
-- Fotoğraf galerisi
-- Özellikler ve teknik detaylar
-- Kullanıcı yorumları
-- Rezervasyon formu ve başarı bildirimi
+Depoyu klonlayın:
 
----
+Bash
+git clone [repo-url-buraya-gelecek]
+Bağımlılıkları yükleyin:
 
-## 🔄 State Management (Redux)
-
-Redux global state üzerinde aşağıdaki veriler tutulmaktadır:
-
-- Karavan listesi
-- Yüklenme durumu (loading)
-- Hata durumu (error)
-- Favorilere eklenen karavanlar
-
-UI’a özgü filtre seçimleri (konum, ekipman, araç tipi) **local state** olarak yönetilmiştir.
-
----
-
-## 🔍 Filtreleme Hakkında Önemli Not
-
-Proje gereksinimlerinde filtreleme işleminin backend tarafında yapılması belirtilmiştir.  
-Ancak sağlanan **MockAPI**, query parametreleriyle filtreleme desteği sunmadığı için filtreleme işlemi frontend tarafında uygulanmıştır.
-
-Bu nedenle:
-- Tüm ilanlar backend’den çekilir
-- Filtreleme işlemleri frontend üzerinde gerçekleştirilir
-
----
-
-## ⏳ Yüklenme Durumu
-
-Asenkron API istekleri sırasında kullanıcıya bilgi vermek için loading indicator kullanılmıştır.
-
----
-
-## 📦 Kurulum ve Çalıştırma
-
-Projeyi lokal ortamda çalıştırmak için:
-
-```bash
-git clone <repo-url>
-cd traveltrucks
+Bash
 npm install
+Uygulamayı başlatın:
+
+Bash
 npm run dev
+Tarayıcıda açın: http://localhost:5173
+
+🧠 Teknik Kararlar ve Çözümler
+Scroll Management: Veri yükleme (Loading) esnasında sayfanın kaymasını engellemek için useEffect cleanup mekanizması kullanılarak overflow: hidden mantığı uygulanmıştır.
+
+Backend Entegrasyonu: MockAPI üzerindeki sınırlamaları aşmak için veriler toplu çekilip, filtreleme ve sayfalama işlemleri performans optimize bir şekilde frontend tarafında yönetilmiştir.
+
+Sticky/Fixed UI: Rezervasyon formu ve detay sekmeleri, kullanıcı deneyimini artırmak için sayfa akışına göre optimize edilmiştir.
+
+Price Formatting: Ödev kriterlerine uygun olarak tüm fiyatlar toFixed(2) ile standart ondalık formatta gösterilmektedir.
+
+👤 Yazar
+İsim: [Burcu Budak]
+
+Rol: Frontend Developer
+
+
+
+
+
+
+🚐✨
