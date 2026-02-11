@@ -1,12 +1,11 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast"; // Toaster importu silindi
 import css from "./BookingForm.module.css";
 
 const BookingForm = () => {
   const [startDate, setStartDate] = useState(null);
-  // Fokus durumunu takip etmek için yeni state
   const [isFocused, setIsFocused] = useState(false); 
 
   const handleSubmit = (e) => {
@@ -28,8 +27,7 @@ const BookingForm = () => {
 
   return (
     <div className={css.formContainer}>
-      <Toaster /> 
-      
+      {/* Toaster bileşeni buradan kaldırıldı */}
       <h3 className={css.title}>Book your campervan now</h3>
       <p className={css.subtitle}>Stay connected! We are always ready to help you.</p>
       
@@ -43,12 +41,9 @@ const BookingForm = () => {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             minDate={new Date()}
-            // --- DEĞİŞİKLİK BURADA ---
-            // Odaklanıldığında veya tarih seçildiğinde yazı değişir
             placeholderText={isFocused || startDate ? "Select a date between today" : "Booking date*"}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            // ------------------------
             className={css.input}
             calendarClassName={css.customCalendar}
             dateFormat="dd/MM/yyyy"
