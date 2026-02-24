@@ -33,7 +33,7 @@ Projeyi yerel makinenizde çalıştırmak için şu adımları izleyin:
 Depoyu klonlayın:
 
 Bash
-git clone [repo-url-buraya-gelecek]
+git clone https://github.com/cucuhead/TravelTrucks.git
 Bağımlılıkları yükleyin:
 
 Bash
