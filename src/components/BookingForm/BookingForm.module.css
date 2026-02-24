@@ -34,13 +34,13 @@
 /* --- INPUT VE TEXTAREA GÜNCELLEMESİ --- */
 
 .input, .textarea {
-  width: 100%; /* Figma'ya tam uyum için %100 yapıldı */
+  width: 100%;
   padding: 18px;
-  border-radius: 12px; /* Figma: 12px */
+  border-radius: 12px; 
   border: none;
   background-color: #f7f7f7;
   font-size: 16px;
-  color: #101828; /* Yazılan metin rengi */
+  color: #101828; 
   outline: none;
   font-family: inherit;
   box-sizing: border-box;

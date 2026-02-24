@@ -15,7 +15,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "campers",
   storage,
-  whitelist: ["favorites"], // Sadece favorilerin kalıcı olmasını istiyoruz
+  whitelist: ["favorites"], 
 };
 
 const persistedReducer = persistReducer(persistConfig, campersReducer);
@@ -27,7 +27,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Redux Persist'in içsel action'larını hata vermemesi için yoksayıyoruz
+       
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),

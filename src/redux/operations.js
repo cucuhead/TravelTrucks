@@ -7,38 +7,30 @@ export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
   async ({ page = 1, limit = 4, ...filters }, thunkAPI) => {
     try {
-      // MockAPI'nin 12 sınırını aşmak için limit=50 ekledik
-      const response = await axios.get("/campers?limit=50");
-      let allCampers = response.data.items || response.data;
+      const params = {
+        page,
+        limit,
+        location: filters.location || undefined,
+        form: filters.type || undefined,
+        AC: filters.equipment?.includes("AC") ? true : undefined,
+        kitchen: filters.equipment?.includes("kitchen") ? true : undefined,
+        TV: filters.equipment?.includes("TV") ? true : undefined,
+        bathroom: filters.equipment?.includes("bathroom") ? true : undefined,
+        transmission: filters.equipment?.includes("transmission") ? "automatic" : undefined,
+      };
 
-      const filteredCampers = allCampers.filter((camper) => {
-        if (filters.location && !camper.location.toLowerCase().includes(filters.location.toLowerCase())) {
-          return false;
-        }
-        if (filters.type && camper.form !== filters.type) {
-          return false;
-        }
-        if (filters.equipment?.length > 0) {
-          return filters.equipment.every((item) => {
-            if (item === "transmission") return camper.transmission === "automatic";
-            return camper[item] === true || camper[item] === "true";
-          });
-        }
-        return true;
-      });
-
-      // SADECE o sayfaya ait yeni verileri gönderiyoruz (0'dan değil, kaldığı yerden)
-      const startIndex = (page - 1) * limit;
-      const endIndex = page * limit;
-      const paginatedItems = filteredCampers.slice(startIndex, endIndex);
+      const response = await axios.get("/campers", { params });
+      const data = response.data.items || response.data;
 
       return {
-        items: paginatedItems,
+        items: data,
         page,
-        // Toplamda hala gösterilmemiş veri var mı?
-        hasMore: filteredCampers.length > endIndex 
+        hasMore: data.length === limit,
       };
     } catch (e) {
+      if (e.response && e.response.status === 404) {
+        return { items: [], page: 1, hasMore: false };
+      }
       return thunkAPI.rejectWithValue(e.message);
     }
   }

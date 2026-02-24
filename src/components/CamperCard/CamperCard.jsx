@@ -8,10 +8,10 @@ import css from "./CamperCard.module.css";
 import starIcon from "../../assets/icons/star-full.svg"; 
 import mapIcon from "../../assets/icons/map.svg";
 import transmissionIcon from "../../assets/icons/diagram.svg"; 
-import engineIcon from "../../assets/icons/fuel.svg"; // Group.svg -> fuel.svg oldu
-import acIcon from "../../assets/icons/ac.svg"; // wind.svg -> ac.svg oldu
-import kitchenIcon from "../../assets/icons/kitchen.svg"; // cup-hot.svg -> kitchen.svg oldu
-import bathroomIcon from "../../assets/icons/bathroom.svg"; // ph_shower.svg -> bathroom.svg oldu
+import engineIcon from "../../assets/icons/fuel.svg"; 
+import acIcon from "../../assets/icons/ac.svg";
+import kitchenIcon from "../../assets/icons/kitchen.svg"; 
+import bathroomIcon from "../../assets/icons/bathroom.svg"; 
 import tvIcon from "../../assets/icons/tv.svg";
 import heartDefault from "../../assets/icons/heart-default.svg";
 import heartActive from "../../assets/icons/heart-active.svg";
@@ -58,9 +58,9 @@ const CamperCard = ({ camper }) => {
                 onClick={handleFavoriteClick}
                 type="button"
                 aria-label="favorite"
-                style={{ cursor: "pointer" }} // Mülakat kriteri
+                style={{ cursor: "pointer" }} 
               >
-                {/* SVG bileşeni yerine doğrudan Figma ikonlarını kullanıyoruz */}
+                
                 <img 
                   src={isFavorite ? heartActive : heartDefault} 
                   alt="favorite" 
@@ -116,7 +116,7 @@ const CamperCard = ({ camper }) => {
           target="_blank"
           rel="noopener noreferrer"
           className={css.showMore}
-          style={{ cursor: "pointer" }} // Mülakat kriteri
+          style={{ cursor: "pointer" }} 
         >
           Show more
         </Link>

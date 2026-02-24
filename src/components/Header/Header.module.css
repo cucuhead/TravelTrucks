@@ -29,28 +29,28 @@
 }
 
 .link {
-  /* Figma'daki 'Body 2' Değerleri */
-  font-family: 'Inter', sans-serif; /* Projende Inter fontunun yüklü olduğundan emin ol */
+ 
+  font-family: 'Inter', sans-serif; 
   font-size: 16px;
-  font-weight: 500; /* Medium */
-  line-height: 24px; /* 1.5 veya 24px */
+  font-weight: 500; 
+  line-height: 24px; 
   letter-spacing: 0;
   
   /* Görsel Yerleşim Değerleri */
-  width: 60px; /* Sabit genişlik yazıyı kutu içine alır */
+  width: 60px; 
   height: 24px;
   display: flex;
   align-items: center;
-  justify-content: center; /* Horizontal alignment: Center */
+  justify-content: center; 
   
   text-decoration: none;
-  color: var(--main); /* Varsayılan renk */
+  color: var(--main);
   transition: color 0.3s ease;
 }
 
-/* Home yazısı (aktif olan) için kırmızı tonu */
+
 .active {
-  color: var(--button); /* #E44848 */
+  color: var(--button);
 }
 
 .link:hover {
@@ -58,5 +58,5 @@
 }
 
 .active {
-  color: var(--button); /* Aktif olan sayfa kırmızı görünecek */
+  color: var(--button); 
 }

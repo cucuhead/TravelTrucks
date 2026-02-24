@@ -5,7 +5,7 @@ import AppRouter from "./routes/AppRouter";
 function App() {
   return (
     <>
-      {/* Toaster burada en üst seviyede durarak tüm sayfalardan gelen bildirimleri yönetir */}
+    
       <Toaster /> 
       <Header />
       <main>

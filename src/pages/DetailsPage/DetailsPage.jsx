@@ -8,7 +8,7 @@ import { selectCurrentCamper, selectIsLoading } from "../../redux/selectors";
 import CamperFeatures from "../../components/CamperFeatures/CamperFeatures";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import CamperReviews from "../../components/CamperReviews/CamperReviews";
-import Loader from "../../components/Loader/Loader"; // Yeni Loader'ımızı ekledik
+import Loader from "../../components/Loader/Loader";
 
 // İkonlar
 import starIcon from "../../assets/icons/star-full.svg";
@@ -29,7 +29,7 @@ const DetailsPage = () => {
     dispatch(fetchCamperById(id));
   }, [dispatch, id]);
 
-  // Eski Loading... yazısı yerine profesyonel Loader bileşenimiz
+
 if (isLoading) {
   return (
     <div className={css.loaderCentered}>

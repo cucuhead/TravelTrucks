@@ -6,7 +6,6 @@ const Loader = () => {
   const originalBodyOverflow = document.body.style.overflow;
   const originalHtmlOverflow = document.documentElement.style.overflow;
 
-  // Hem body hem html'i kilitle
   document.body.style.overflow = "hidden";
   document.documentElement.style.overflow = "hidden";
 

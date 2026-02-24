@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import toast from "react-hot-toast"; // Toaster importu silindi
+import toast from "react-hot-toast"; 
 import css from "./BookingForm.module.css";
 
 const BookingForm = () => {
@@ -27,7 +27,7 @@ const BookingForm = () => {
 
   return (
     <div className={css.formContainer}>
-      {/* Toaster bileşeni buradan kaldırıldı */}
+     
       <h3 className={css.title}>Book your campervan now</h3>
       <p className={css.subtitle}>Stay connected! We are always ready to help you.</p>
       

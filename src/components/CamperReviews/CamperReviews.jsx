@@ -1,5 +1,5 @@
-import starFull from "../../assets/icons/star-full.svg"; // Rating (6).svg -> star-full.svg oldu
-import starEmpty from "../../assets/icons/star-empty.svg"; // Rating (5).svg -> star-empty.svg oldu
+import starFull from "../../assets/icons/star-full.svg"; 
+import starEmpty from "../../assets/icons/star-empty.svg"; 
 import css from "./CamperReviews.module.css";
 
 const CamperReviews = ({ reviews }) => {

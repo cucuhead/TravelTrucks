@@ -9,21 +9,21 @@ import radioIcon from "../../assets/icons/radio.svg";
 import tvIcon from "../../assets/icons/tv.svg";
 import bathroomIcon from "../../assets/icons/bathroom.svg";
 
-// Hata Düzeltilen ve Yeni Eklenen İkonlar
+
 import waterIcon from "../../assets/icons/ion_water-outline.svg";
-import fridgeIcon from "../../assets/icons/solar_fridge-outline.svg"; // 'fringe' hatası 'fridge' olarak düzeltildi
+import fridgeIcon from "../../assets/icons/solar_fridge-outline.svg"; 
 import gasIcon from "../../assets/icons/hugeicons_gas-stove.svg";
 import microwaveIcon from "../../assets/icons/lucide_microwave.svg";
 
 const CamperFeatures = ({ camper }) => {
-  // Verideki 'water: true' gibi alanları yakalamak için eşleştirme listesi
+  
   const equipment = [
     { id: "AC", label: "AC", icon: acIcon },
     { id: "kitchen", label: "Kitchen", icon: kitchenIcon },
     { id: "radio", label: "Radio", icon: radioIcon },
     { id: "bathroom", label: "Bathroom", icon: bathroomIcon },
     { id: "TV", label: "TV", icon: tvIcon },
-    { id: "water", label: "Water", icon: waterIcon }, // Senin yakaladığın eksik 'water'
+    { id: "water", label: "Water", icon: waterIcon }, 
     { id: "refrigerator", label: "Refrigerator", icon: fridgeIcon },
     { id: "gas", label: "Gas", icon: gasIcon },
     { id: "microwave", label: "Microwave", icon: microwaveIcon },

@@ -53,24 +53,23 @@
   margin: 0;
   font-size: 16px;
   line-height: 1;
-  color: #101828; /* Yazılan metin rengi */
+  color: #101828;
   font-family: 'Inter', sans-serif;
 }
 
 /* --- PLACEHOLDER GÜNCELLEMESİ --- */
 
-/* Tıklanmadan önce: Daha silik görünüm */
 .locationInput::placeholder {
   color: #101828;
-  opacity: 0.4; /* Figma'daki o silik gri efekti */
+  opacity: 0.4; 
   font-weight: 400;
   transition: opacity 0.3s ease;
 }
 
 
-/* Tıklandığında (Focus): Daha belirgin/koyu görünüm */
+
 .locationInput:focus::placeholder {
-  opacity: 0.7; /* Tıklandığında yazı daha belirginleşir */
+  opacity: 0.7; 
 }
 
 /* --- İKON GÜNCELLEMESİ --- */
@@ -79,20 +78,17 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  /* İlk başta silik görünüm */
+
   opacity: 0.4; 
   transition: opacity 0.3s ease;
 }
 
-/* Input'a tıklandığında (focus) ikonu siyahlaştırıyoruz */
+
 .inputWrapper:focus-within .mapIcon {
-  opacity: 1; /* Tam siyah/net görünüm */
+  opacity: 1;
 }
 
-/* Filtre Grupları Genel */
-.filtersSection {
-  /* margin-top: 32px; */
-}
+
 
 .filterTitle {
   font-weight: 500;
@@ -113,7 +109,7 @@
   margin-bottom: 24px;
 }
 
-/* Filtre Kartları Grid (112x96) */
+
 .filterGrid {
   display: flex;
   flex-wrap: wrap;
@@ -159,7 +155,7 @@
   color: white;
   border: none;
   border-radius: 200px;
-  padding: 16px 0; /* İçerik ortalaması için padding ayarı */
+  padding: 16px 0;
   font-weight: 500;
   font-size: 16px;
   margin-top: 40px;
@@ -209,7 +205,6 @@
   justify-content: center;
   align-items: center;
 
-   /* width: 100%; */
   min-height: 200px;
   font-size: 20px;
   font-weight: 500;

@@ -47,14 +47,20 @@ Tarayıcıda açın: http://localhost:5173
 🧠 Teknik Kararlar ve Çözümler
 Scroll Management: Veri yükleme (Loading) esnasında sayfanın kaymasını engellemek için useEffect cleanup mekanizması kullanılarak overflow: hidden mantığı uygulanmıştır.
 
-Backend Entegrasyonu: MockAPI üzerindeki sınırlamaları aşmak için veriler toplu çekilip, filtreleme ve sayfalama işlemleri performans optimize bir şekilde frontend tarafında yönetilmiştir.
+Backend Filtreleme & Sayfalama: Veri trafiğini optimize etmek ve ödev kriterlerini karşılamak amacıyla filtreleme ve sayfalama işlemleri Backend (MockAPI) tarafında yönetilmektedir. İstemci (Frontend), sadece gerekli params değerlerini (location, form, equipment) API'ye göndererek filtrelenmiş veriyi çeker.
+
+Deployment Configuration: Single Page Application (SPA) yönlendirme hatalarını önlemek için Vercel üzerinde vercel.json yapılandırması kullanılarak tüm rotalar ana dizine (index.html) yönlendirilmiştir.
+
+Hata Yönetimi: API'den dönen 404 (Sonuç bulunamadı) durumları özel olarak yakalanmış ve uygulamanın çökmesi engellenerek kullanıcıya temiz bir "bulunamadı" geri bildirimi sağlanmıştır.
+
+Figma Sadakati: Tüm ikonlar ve görsel yerleşimler orijinal Figma tasarımına sadık kalınarak, pixel-perfect anlayışıyla geliştirilmiştir.
 
 Sticky/Fixed UI: Rezervasyon formu ve detay sekmeleri, kullanıcı deneyimini artırmak için sayfa akışına göre optimize edilmiştir.
 
 Price Formatting: Ödev kriterlerine uygun olarak tüm fiyatlar toFixed(2) ile standart ondalık formatta gösterilmektedir.
 
 👤 Yazar
-İsim: [Burcu Budak]
+İsim: Burcu Budak
 
 Rol: Frontend Developer
 

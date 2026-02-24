@@ -53,7 +53,6 @@ const campersSlice = createSlice({
           state.items = [...state.items, ...items];
         }
 
-        // operations.js'den gelen hasMore bilgisini kullanıyoruz
         state.hasMore = hasMore;
       })
       .addCase(fetchCampers.rejected, (state, action) => {

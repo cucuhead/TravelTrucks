@@ -4,10 +4,10 @@ import { fetchCampers } from "../../redux/operations";
 import { selectCampers, selectIsLoading } from "../../redux/selectors";
 import { setFilters } from "../../redux/slices/campersSlice";
 import CamperCard from "../../components/CamperCard/CamperCard";
-import Loader from "../../components/Loader/Loader"; // Loader'ı ekledik
+import Loader from "../../components/Loader/Loader"; 
 import css from "./CatalogPage.module.css";
 
-// İkon importları
+
 import mapPinIcon from "../../assets/icons/map.svg";
 import acIcon from "../../assets/icons/ac.svg";
 import diagramIcon from "../../assets/icons/diagram.svg";

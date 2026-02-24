@@ -8,9 +8,9 @@ const AppRouter = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/catalog" element={<CatalogPage />} />
-      {/* Ödev Kriteri: /catalog/:id – Karavan Detay Sayfası */}
+   
       <Route path="/catalog/:id" element={<DetailsPage />} />
-      {/* Yanlış bir link girilirse ana sayfaya yönlendirir */}
+   
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

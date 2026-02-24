@@ -1,11 +1,11 @@
 .container {
-  /* Figma'daki toplam sayfa genişliği */
+ 
   max-width: 1440px; 
   margin: 0 auto;
-  /* Üst/Alt 48px, Sol/Sağ 64px boşluk */
+ 
   padding: 48px 64px; 
   font-family: 'Inter', sans-serif;
-  box-sizing: border-box; /* Padding'in genişliğe dahil olması için şart */
+  box-sizing: border-box; 
 }
 
 /* Üst Bilgiler */
@@ -45,11 +45,11 @@
   margin-top: 16px;
 }
 
-/* Galeri - Figma: 292x312px, Gap: 48px */
+
 
 
 .gallery::-webkit-scrollbar {
-  display: none; /* Chrome/Safari için gizle */
+  display: none; 
 }
 
 
@@ -62,18 +62,18 @@
 
 /* Her bir resmin dış sarmalayıcısı */
 .imageWrapper {
-  width: 292px;  /* Figma ölçüsü */
-  height: 312px; /* Figma ölçüsü */
+  width: 292px;  
+  height: 312px; 
   border-radius: 10px;
-  overflow: hidden; /* Köşelerin kesilmesi için ŞART */
+  overflow: hidden; 
   flex-shrink: 0;
 }
 
-/* Resmin kendisi */
+
 .galleryImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Resmi sündürmeden doldurur */
+  object-fit: cover; 
   display: block;
 }
 
@@ -82,7 +82,7 @@
   line-height: 1.5;
   color: #475467;
   margin-bottom: 44px;
-  max-width: 100%; /* Açıklamanın çok yayılmasını engellemek istersen sınırlayabilirsin */
+  max-width: 100%; 
 }
 
 /* Sekmeler (Tabs) */
@@ -118,23 +118,23 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch; /* Yükseklikleri eşitler */
-  gap: 40px;            /* Figma gap */
+  align-items: stretch; 
+  gap: 40px;           
   width: 100%;
-  max-width: 1312px;    /* 631 + 40 + 641 */
-  margin: 44px auto 0;  /* Ortala */
-  padding: 0 16px;      /* Kenarlara yapışmasın diye minik bir pay */
+  max-width: 1312px;   
+  margin: 44px auto 0;  
+  padding: 0 16px;      
   box-sizing: border-box;
 }
 
 .leftContent {
-  /* Figma oranı: 631 / 1272 (toplam genişlik) ≈ %49.6 */
+
   flex: 0 1 49.6%; 
   min-width: 0;
 }
 
 .rightContent {
-  /* Figma oranı: 641 / 1272 ≈ %50.4 */
+
   flex: 0 1 50.4%;
   min-width: 0;
 }
@@ -172,17 +172,17 @@
 }
 
 .loaderCentered {
-  position: fixed;    /* Akıştan çıkar, ekrana sabitle */
+  position: fixed;  
   top: 0;
   left: 0;
-  width: 100vw;       /* Tüm genişliği kapla */
-  height: 100vh;      /* Tüm yüksekliği kapla */
-  background-color: #ffffff; /* Arkadaki Sidebar/Header'ı maskele */
+  width: 100vw;       
+  height: 100vh;     
+  background-color: #ffffff; 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;      /* Her şeyin (bileşenlerin) en üstünde dur */
-  overflow: hidden;   /* Kendi içinden scroll çıkmasını engelle */
+  z-index: 9999;    
+  overflow: hidden;   
 }
 .noData {
   text-align: center;
